@@ -31,16 +31,13 @@ public class TFTlogin {
 		while(true) {
 			try {
 				allMsg = in.readUTF();
-				System.out.println("로그인 입력 : " + allMsg);
 			}catch(IOException e) {
 				return;
 			};
 			
-			
 			line = new StringTokenizer(allMsg, "$");
 			sign = line.nextToken();
 			next = line.nextToken();
-			
 			if(sign.equals("LOGIN")) { //로그인 요구
 				String ID = null;
 				String PW = null;
@@ -48,13 +45,10 @@ public class TFTlogin {
 				ID = line.nextToken();
 				PW = line.nextToken();
 				
-				//DB로  로그인 검사
+				//DB로  로그인 검사 ID, PW 사용
 				//loginName = (DB 로그인 SQL);
 				// 성공 시 : 로그인 성공한 아이디
 				// 실패 시 : LOGINFAIL
-				sql sql = new sql();
-				loginName = sql.selectSummoner_info(ID, PW);
-				sql.closeConnect();
 				
 				if(!loginName.equals("LOGINFAIL")) { //로그인 성공
 					loginName = loginName + " f"; //닉네임 불량 방지
@@ -62,16 +56,19 @@ public class TFTlogin {
 					loginName = line.nextToken();
 					TFTMenu mainMenu = new TFTMenu(sock);
 					
-					/*
-					
-					메인 메뉴 이동 전 추가 작업 처리
-					ex) 시작 메뉴 가기전 클라이언트나 서버가 가져야할 값 처리
-					
-					*/
+					loginName = ID; // 아이디 저장 및 아이디 전달
 					try {
 						out.writeUTF("LOGINSUCCESS$"); //로그인 성공 메시지
 					}catch(IOException e) {}
-					mainMenu.startMenu(); // 페이지 동작
+					
+					//로그인 성공 후 전적 검색 보내기
+					
+					
+					
+					
+					//반복문으로 작성
+					
+					mainMenu.SearchMenu(); // 페이지 동작
 					
 				}else { //로그인 실패
 					try {

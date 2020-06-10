@@ -1,7 +1,4 @@
 import javax.swing.tree.*;
-
-import org.json.simple.parser.ParseException;
-
 import javax.swing.table.*;
 import java.sql.*;
 import java.io.*;
@@ -53,21 +50,14 @@ public class TFTstart extends Thread{
 					out.writeUTF("USJOINMOVE$"); // 회원가입 메시지
 				}catch(IOException e) {}
 				TFTjoin JoinPage = new TFTjoin(sock);
-				
-				//sql,및 리퀘스트 때문에 try/catch문
-				try {
-					JoinPage.joinPage();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				JoinPage.joinPage();
 				
 			}else if(sign.equals("DESTARTMOVE")) { //로그인 없이 시작
 				try {
 					out.writeUTF("DESTARTMOVE$"); //바로 시작 메시지
 				}catch(IOException e) {}
 				TFTMenu mainMenu = new TFTMenu(sock);
-				mainMenu.startMenu();
+				mainMenu.SearchMenu();
 				
 			}else {
 				try {
