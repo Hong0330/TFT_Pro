@@ -1,5 +1,5 @@
 package com.example.TFTclientPro;
-
+//검색 페이지
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
@@ -7,15 +7,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Build;
 import android.os.AsyncTask;
+import android.widget.Toast;
 import java.io.*;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+// 저장한 정보가 보관될 리스트 필요
+
+// 검색한 정보가 보관될 리스트 필요
+
 public class SearchMenu extends AppCompatActivity {
-    public Socket client;
-    public DataInputStream in;
-    public DataOutputStream out;
+    public Socket client; //클라이언트 소켓 보관
+    public DataInputStream in; // 수신용
+    public DataOutputStream out; // 송신용
+    SearchManager searchPage;
     //public PrintWriter out; //서버에 출력하기 위한 스트림
     //public BufferedReader in; //입력 스트림
     StringTokenizer line; //문자 메시지 구분자
@@ -23,19 +30,39 @@ public class SearchMenu extends AppCompatActivity {
     String sign = null; //클라이언트 신호
     String next = null; //다음 메시지
 
+    ArrayList<String[]>Savelist; // 매치 정보(경기 정보) - 세이브 정보
+
+    ArrayList<String[]>Matchlist; // 매치 정보(경기 정보) - 검색
+    String Summoner = null; // 소환사 이름(검색)
+    String Entry = null; // 소환사 티어(검색)
+    int matchNum = 0; // 매치 횟수(가져온 경기 수)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        //setContentView(R.layout.activity_search);
 
-        SearchManager searchPage = new SearchManager();
+        searchPage = new SearchManager();
         searchPage.execute();
+    }
+
+    @Override
+    public void onBackPressed() { //뒤로 가기 버튼
+        try {
+            out.writeUTF("ENDPAGE"); // 시작 페이지로 이동
+        }catch(IOException e) {}
+        searchPage.cancel(true); // 현재 asyncTask 종료
     }
 
     public class SearchManager extends AsyncTask<Void, String, String> {
         @Override
         protected void onPreExecute() { //시작 전 UI 세팅
             super.onPreExecute();
+
+
+            //UI 띄우기 전에 UI 세팅
+
+
         }
 
         @Override
@@ -54,7 +81,7 @@ public class SearchMenu extends AppCompatActivity {
                     in = new BufferedReader(inputStreamReader);*/
                     out = new DataOutputStream(client.getOutputStream());
                     in = new DataInputStream(client.getInputStream());
-                    publishProgress("0");
+                    publishProgress("PageOpen"); //페이지 열기
                 }catch (IOException e){}
             }
 
@@ -69,15 +96,57 @@ public class SearchMenu extends AppCompatActivity {
                 sign = line.nextToken();
                 next = line.nextToken();
 
-                //US : 등록 유저 명령어 구분   DE : 비등록 유저 명령어 구분
-                if(sign.equals("USLOGINMOVE")) { //로그인 페이지로 이동
-                    return "USLOGINMOVE";
+                if(sign.equals("SEARCHOK")) { // 검색 성공
+                    Matchlist = new ArrayList<String[]>();
+                    line = new StringTokenizer(next, "&&");
+                    Summoner = line.nextToken();
+                    Entry = line.nextToken();
+                    matchNum = Integer.parseInt(line.nextToken());
 
-                }else if(sign.equals("USJOINMOVE")) { //회원가입 페이지로 이동
-                    return "USJOINMOVE";
+                    while (true){
+                        try{
+                            allMsg = in.readUTF(); //메시지 올 때까지 대기
+                        }catch (IOException e){ }
 
-                }else if(sign.equals("DESTARTMOVE")) { //로그인 없이 시작
-                    return "DESTARTMOVE";
+                        line = new StringTokenizer(allMsg, "$");
+                        sign = line.nextToken();
+                        next = line.nextToken();
+
+                        if(sign.equals("FAINALLMSG")){ // 마지막 정보
+                            line = new StringTokenizer(allMsg, "&&"); //밑 : 데이터 수 많큼 넣기(한 경기)
+                            //Matchlist.add(new String[]{line.nextToken(), line.nextToken(), line.nextToken() ...})
+                            break;
+
+                        }else if(sign.equals("NEWMSG")){ //정보 계속
+                            line = new StringTokenizer(allMsg, "&&"); //밑 : 데이터 수 많큼 넣기(한 경기)
+                            //Matchlist.add(new String[]{line.nextToken(), line.nextToken(), line.nextToken() ...})
+
+                        }else{
+                            // 잘못된 결과가 올 경우 알림
+                            System.out.println("정보 절달 Miss");
+                        }
+                    }
+                    //검색 결과를 받아오는 코드 필요
+                    /*
+                      String Summoner = null; // 소환사 이름(검색)
+                      String Entry = null; // 소환사 티어(검색)
+                      int matchNum = 0; // 매치 횟수(가져온 경기 수)
+
+                    */
+
+                    publishProgress("SEARCHOK");
+
+                }else if(sign.equals("SEARCHFAIL")) { // 검색 실패
+                    publishProgress("SEARCHFAIL");
+
+                }else if(sign.equals("SAVEPAGE")) { // 저장 페이지로 가기
+                    publishProgress("SAVEPAGE");
+
+                }else if(sign.equals("MYPROFILE")) { // 나의 프로필 가기
+                    publishProgress("MYPROFILE");
+
+                }else if(sign.equals("ENDPAGE")) { // 뒤로가기? - 페이지 나가기
+                    return "ENDPAGE";
 
                 }else {
                     //질못된 전송이 있을 경우 - return 하면 안 됨
@@ -89,18 +158,52 @@ public class SearchMenu extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(String... values) { //동작 중에 UI 업데이트
             super.onProgressUpdate(values);
-            //Intent intent = new Intent(getApplicationContext(), SubActibit.class);
-            //startActivity(intent);
+            if(values[0].equals("PageOpen")){ //페이지 띄우기
+                setContentView(R.layout.main_login);
+                System.out.println("검색 페이지");
+
+            }else if(values[0].equals("SEARCHOK")){ // 검색 성공
+                // 검색 성공 시 UI 변경 이벤트 처리
+                Intent intent = new Intent(getApplicationContext(), ResultList.class);
+                intent.putExtra("Match", Matchlist);
+                startActivity(intent);
+
+            }else if(values[0].equals("SEARCHFAIL")){ //검색 실패
+                // 검색 실패 시 메시지 띄위기
+                Toast failToast = Toast.makeText(getApplicationContext(),
+                        "닉네임을 찾을 수 없습니다.", Toast.LENGTH_SHORT);
+
+            }else if(values[0].equals("SAVEPAGE")){ //전적 저장 페이지로 가기
+                Intent intent = new Intent(getApplicationContext(), SaveData.class);
+                startActivity(intent);
+
+            }else if(values[0].equals("MYPROFILE")){ //나의 정보 보러 가기
+                Intent intent = new Intent(getApplicationContext(), MyProfile.class);
+                startActivity(intent);
+
+            }
         }
 
         @Override
-        protected void onPostExecute(String aVoid) { //동작 마무리 UI 업데이트
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(String Result) { //동작 마무리 UI 업데이트
+            super.onPostExecute(Result);
+            if(Result.equals("ENDPAGE")){ //뒤로 가기 - 페이지 나가기
+                //Login = false;
+                MyData.Login = false;
+                Intent intent = new Intent(getApplicationContext(), StartMenu.class);
+                startActivity(intent);
+
+            }
+
         }
 
         @Override
         protected void onCancelled() { // 동작 종료 시 발생
             super.onCancelled();
+            MyData.Login = false;
+            Intent intent = new Intent(getApplicationContext(), StartMenu.class);
+            startActivity(intent); //페이지 이동
+            finish(); //액티비티 삭제
         }
 
     }

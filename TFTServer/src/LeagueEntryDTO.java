@@ -1,4 +1,3 @@
-
 public class LeagueEntryDTO {
 	private String leagueId;
     private String queueType;

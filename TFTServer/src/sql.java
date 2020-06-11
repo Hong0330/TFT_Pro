@@ -31,28 +31,25 @@ public class sql {
 	String deleteUnit = "delete from unit_info where match_id=?";
 	
 	public void connect() {
+		//Ŀ�ؼ� ����
 		try {
 			con = DriverManager.getConnection(url,user,password);
-			System.out.println("Ŀ�ؼ� ����");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public String insertSummoner_info(String id,String pw,String name) {
+	public void insertSummoner_info(String id,String pw,String name) {
 		try {
 			pstatement = con.prepareStatement(summoner_info);
 			pstatement.setString(1, id);
 			pstatement.setString(2, pw);
 			pstatement.setString(3, name);
-			pstatement.execute();	
-			
-			return "JOINOK";
+			pstatement.execute();		
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "JOINFALE";
 		}
 		
 	}
@@ -129,34 +126,6 @@ public class sql {
 		}
 	}
 	
-	public String checkSummoner_info(String id) {
-		try {
-			String tmp_id = null;
-			
-			pstatement = con.prepareStatement(selectSummoner);
-			pstatement.setString(1, id);
-			
-			ResultSet rs = pstatement.executeQuery();
-			
-			while(rs.next()) {
-				tmp_id = rs.getString("ID");
-			}
-			
-			if(tmp_id.equals(id)) { //중복된 아이디가 있을 경우
-				rs.close();
-				return tmp_id;
-			}
-			else {
-				rs.close();
-				return "CONTROLSUCCESS";
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return "FAIL";
-		}
-	}
-	
 	public String selectSummoner_info(String id, String pw) {
 		try {
 			String tmp_id = null;
@@ -171,7 +140,7 @@ public class sql {
 				tmp_id = rs.getString("ID");
 				tmp_pw = rs.getString("password");
 			}
-			if(tmp_id == null) {
+			if(tmp_id == null) { 
 				return "LOGINFAIL"; 
 			}
 			
@@ -365,7 +334,7 @@ public class sql {
 			pstatement.setString(1, match_id);
 			
 			if(pstatement.executeUpdate() > 0) {
-				return "성공";
+				return "����";
 			}
 			else {
 				return "DELETEUSERFAIL";
@@ -425,4 +394,3 @@ public class sql {
 		}
 	}
 }
-

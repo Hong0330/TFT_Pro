@@ -1,4 +1,3 @@
-
 public class MatchDto {
 	private MetadataDto matadata;
     private InfoDto info;

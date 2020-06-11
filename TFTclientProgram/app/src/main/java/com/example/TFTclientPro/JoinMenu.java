@@ -16,6 +16,7 @@ public class JoinMenu extends AppCompatActivity {
     public Socket client;
     public DataInputStream in;
     public DataOutputStream out;
+    JoinManager joinPage;
     //public PrintWriter out; //서버에 출력하기 위한 스트림
     //public BufferedReader in; //입력 스트림
     StringTokenizer line; //문자 메시지 구분자
@@ -28,16 +29,26 @@ public class JoinMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join);
+        //setContentView(R.layout.activity_join);
 
-        JoinManager joinPage = new JoinManager();
+        joinPage = new JoinManager();
         joinPage.execute();
+    }
+
+    @Override
+    public void onBackPressed() { //뒤로 가기 버튼
+        try{
+            out.writeUTF("ENDPAGE$"); // 종료 메시지
+        }catch (IOException e){}
+        joinPage.cancel(true); // 현재 asyncTask 종료
     }
 
     public class JoinManager extends AsyncTask<Void, String, String> {
         @Override
         protected void onPreExecute() { //시작 전 UI 세팅
             super.onPreExecute();
+            IDcontrol = false;
+            Nickcontrol = false;
         }
 
         @Override
@@ -56,7 +67,7 @@ public class JoinMenu extends AppCompatActivity {
                     in = new BufferedReader(inputStreamReader);*/
                     out = new DataOutputStream(client.getOutputStream());
                     in = new DataInputStream(client.getInputStream());
-                    publishProgress("0");
+                    publishProgress("PageOpen");
                 }catch (IOException e){}
             }
 
@@ -115,7 +126,11 @@ public class JoinMenu extends AppCompatActivity {
             super.onProgressUpdate(values);
             //Intent intent = new Intent(getApplicationContext(), SubActibit.class);
             //startActivity(intent);
-            if(values[0].equals("IDFALSE")){ //
+            if(values[0].equals("PageOpen")){ //페이지 띄우기
+                setContentView(R.layout.signup);
+                System.out.println("회원가입 페이지");
+
+            }else if(values[0].equals("IDFALSE")){ //
                 AlertDialog.Builder SubMsg = new AlertDialog.Builder(JoinMenu.this);
                 SubMsg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
@@ -136,9 +151,7 @@ public class JoinMenu extends AppCompatActivity {
                 });
                 failMsg.setMessage("잘못된 'TFT 닉네임' 입니다.");
                 failMsg.show();
-            }
-
-            if(values[0].equals("JOINFALE")){ //가입 실패하는 경우
+            }else if(values[0].equals("JOINFALE")){ //가입 실패하는 경우
                 AlertDialog.Builder SubMsg = new AlertDialog.Builder(JoinMenu.this);
                 SubMsg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
@@ -159,19 +172,17 @@ public class JoinMenu extends AppCompatActivity {
 
             if(Result.equals("JOINSUCCESS")){ //가입 성공 및 시작 페이지로 나가기
                 Intent intent = new Intent(getApplicationContext(), StartMenu.class);
-                startActivity(intent); //페이지 이동
-                /*
-                추가 작업 필요 시(다음 페이지로 정보 전달)
-                방법 : 발신 : intent.putExtra("이름", "전달 값");
-                방법 : 수신 : Intent intent = getIntent();
-                             String name = intent.getExtras.getString("이름");
-                */
+                startActivity(intent); //시작 페이지 이동
             }
+            finish();
         }
 
         @Override
-        protected void onCancelled() { // 동작 종료 시 발생
+        protected void onCancelled() { // 동작 종료 시 발생 -- 뒤로가기
             super.onCancelled();
+            Intent intent = new Intent(getApplicationContext(), StartMenu.class);
+            startActivity(intent); //페이지 이동
+            finish(); //액티비티 삭제
         }
 
     }

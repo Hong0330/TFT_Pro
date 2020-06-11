@@ -34,47 +34,6 @@ public class Request extends Thread{
     ArrayList<String> nameTmp = new  ArrayList<String>();
     int index = 1;
     
-    public String checkSummonerDTO(String name) throws ParseException {
-    	try {
-    		String tmp_name = null;
-    		name = URLEncoder.encode(name, "UTF-8");  //인코딩
-    		URL url = new URL(URL_01 + name + "?api_key=" + API_key);
-            System.out.println(url);
-            HttpsURLConnection myConnection = (HttpsURLConnection) url.openConnection();
-            if (myConnection.getResponseCode() == 200) { //성공시
-            	InputStream responseBody = myConnection.getInputStream();
-                InputStreamReader responseBodyReader = new InputStreamReader(responseBody, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(responseBodyReader); //
-                StringBuffer buffer = new StringBuffer();
-                String str;
-                while ((str = bufferedReader.readLine()) != null) {
-                    buffer.append(str);
-                }
-                String receiveMsg = buffer.toString();
-                
-                JSONParser jsonParser = new JSONParser();
-                JSONObject jsonObject = (JSONObject)jsonParser.parse(receiveMsg);
-                setSummonerDTO(jsonObject);
-                tmp_name = summonerDTO.getName();
-                
-                if(tmp_name.equals(name)) { //닉네임을 찾을 경우 
-                	return tmp_name;
-                }
-                else { //일치하지 않을 경우 
-                	return "FAILNICK";
-                }
-                
-            }
-            else { //실패시 
-            	return "FAILNICK";
-            }
-    		
-    	} catch(IOException e) {
-    		System.out.println("오류발생");
-            e.printStackTrace();
-            return "FAILNICK";
-    	}
-    }
    
     public boolean callSummonerDTO(String name) throws ParseException {
     	try {   		
@@ -139,7 +98,7 @@ public class Request extends Thread{
                 JSONParser jsonParser = new JSONParser();
                 
                 if("".equals(receiveMsg)) { // TFT전적 기록이 없을때
-                	System.out.println("�÷��� ���� ����");
+                	System.out.println("전적기록없음");
                 	return false;
                 }               
                 

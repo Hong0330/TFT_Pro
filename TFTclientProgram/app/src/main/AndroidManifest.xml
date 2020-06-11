@@ -11,11 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartMenu"></activity>
+        <activity android:name=".MyProfile"></activity>
+        <activity android:name=".DetailResult" />
+        <activity android:name=".ResultList" />
+        <activity android:name=".SaveData" />
+        <activity android:name=".StartMenu" />
         <activity android:name=".SearchMenu" />
         <activity android:name=".JoinMenu" />
         <activity android:name=".LoginMenu" />
-        <activity android:name=".MainActivity_1">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

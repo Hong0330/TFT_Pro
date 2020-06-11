@@ -1,7 +1,4 @@
 import javax.swing.tree.*;
-
-import org.json.simple.parser.ParseException;
-
 import javax.swing.table.*;
 import java.sql.*;
 import java.io.*;
@@ -15,14 +12,11 @@ public class TFTjoin {
 	StringTokenizer line; //문자 메시지 구분자
 	Socket sock;
 	
-	Request request = new Request();
-	sql sql = new sql();
-	
 	TFTjoin(Socket socket){
 		sock = socket;
 	}
 	
-	void joinPage() throws ParseException {
+	void joinPage() {
 		String allMsg = null; //전체 메시지
 		String sign = null; //클라이언트 신호
 		String next = null; //다음 메시지
@@ -61,9 +55,6 @@ public class TFTjoin {
 				// 실패 : CONTROLSUCCESS
 				// IDControl = (SQL);
 				
-				IDControl = sql.checkSummoner_info(IDName);
-				
-				// 중복한것이 있을경우
 				if(IDControl.equals("CONTROLSUCCESS")) {
 					try {
 						out.writeUTF("USEDID$"); //중복 아이디 
@@ -78,7 +69,6 @@ public class TFTjoin {
 				// 성공 : 아무거나 or 입
 				// 실패 : FAILNICK
 				// TFTControl = API 결과 값 저장
-				TFTControl = request.checkSummonerDTO(TFTName);
 				
 				if(TFTControl.equals("FAILNICK")) {
 					try {
@@ -106,7 +96,6 @@ public class TFTjoin {
 				//DB에 저장 SQL 작성
 				// 성공 : JOINOK
 				// 실패 : JOINFALE
-				JOINCUT = sql.insertSummoner_info(IDName, PWdate, TFTName);
 				
 				if(JOINCUT.equals("JOINOK")) { //가입 성공
 					try {// 가입 성공
@@ -120,9 +109,11 @@ public class TFTjoin {
 				}
 				
 			}else if(sign.equals("ENDPAGE")) { //나가기 요구
+				/*
 				try {
 					out.writeUTF("ENDPAGE$"); // 시작 페이지 이동
 				}catch(IOException e) {}
+				*/
 				return;
 				
 			}else { // 잘못된 입력 처리

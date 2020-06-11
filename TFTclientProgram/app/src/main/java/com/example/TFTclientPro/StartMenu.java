@@ -14,6 +14,7 @@ public class StartMenu extends AppCompatActivity {
     public Socket client;
     public DataInputStream in;
     public DataOutputStream out;
+    startManager startPage;
     //public PrintWriter out; //서버에 출력하기 위한 스트림
     //public BufferedReader in; //입력 스트림
     StringTokenizer line; //문자 메시지 구분자
@@ -26,8 +27,16 @@ public class StartMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_start);
 
-        startManager startPage = new startManager();
+        startPage = new startManager();
         startPage.execute();
+    }
+
+    @Override
+    public void onBackPressed() { //뒤로 가기 버튼
+        try{
+            out.writeUTF("ENDPAGE$"); // 종료 메시지
+        }catch (IOException e){}
+        startPage.cancel(true); // 현재 asyncTask 종료
     }
 
     public class startManager extends AsyncTask<Void, String, String>{
@@ -87,8 +96,8 @@ public class StartMenu extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(String... values) { //동작 중에 UI 업데이트
             super.onProgressUpdate(values);
-            if(values[0].equals("PageOpen")){ //어플을 시작했을 경우
-                setContentView(R.layout.activity_start);
+            if(values[0].equals("PageOpen")){ //시작 페이지 띄우기
+                setContentView(R.layout.activity_main);
                 System.out.println("시작 페이지");
             }
 
@@ -108,6 +117,7 @@ public class StartMenu extends AppCompatActivity {
 
             }else if(commend.equals("DESTARTMOVE")){ //비회원 시작
                 Intent intent = new Intent(getApplicationContext(), SearchMenu.class);
+                intent.putExtra("login", false); //비회원 시작 전달
                 startActivity(intent);
                 /*
                 추가 작업 필요 시(다음 페이지로 정보 전달)
@@ -116,6 +126,8 @@ public class StartMenu extends AppCompatActivity {
                              String name = intent.getExtras.getString("이름");
                 */
             }
+
+            finish();
         }
 
         @Override
