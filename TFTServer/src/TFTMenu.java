@@ -15,11 +15,17 @@ public class TFTMenu {
 	private DataOutputStream out;
 	StringTokenizer line; //문자 메시지 구분자
 	Socket sock;
+	Request r = null;
+	
 	
 	ArrayList<String[]> saveList;
 	
 	TFTMenu(Socket socket){
 		sock = socket;
+	}
+	
+	public void setRequest(Request r) {
+		this.r = r;
 	}
 	
 	void SearchMenu() {
