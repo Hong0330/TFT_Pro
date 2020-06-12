@@ -28,8 +28,10 @@ public class ServerOn {
 			}catch(IOException r) {}
 			System.out.println(Sock.getInetAddress() + " 에서 접속했습니다.");
 			
-			TFTstart startPage = new TFTstart(Sock);
-			startPage.start();
+			//TFTstart startPage = new TFTstart(Sock);
+			//startPage.start();
+			ServerObject serverObject = new ServerObject(Sock);
+			serverObject.start();
 		}
 	}
 	

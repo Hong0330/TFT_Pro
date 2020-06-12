@@ -31,12 +31,39 @@ public class sql {
 	String deleteUnit = "delete from unit_info where match_id=?";
 	
 	public void connect() {
-		//Ŀ�ؼ� ����
 		try {
 			con = DriverManager.getConnection(url,user,password);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public boolean check_signup(String id) {
+		try {
+			String tmp_id = null;
+			
+			pstatement = con.prepareStatement(selectSummoner);
+			pstatement.setString(1, id); 	
+			
+			ResultSet rs = pstatement.executeQuery();
+			
+			while(rs.next()) {
+				tmp_id = rs.getString("ID");
+			}
+			
+			if(tmp_id == null) { //해당하는 아이디가 없는 경우 생성할 수 있음
+				rs.close();
+				return true; 
+			}
+			else {	//중복이 있는 경우 false
+				rs.close();
+				return false;
+			}
+
+		} catch (SQLException e) {//예외 발생시 
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -126,7 +153,7 @@ public class sql {
 		}
 	}
 	
-	public String selectSummoner_info(String id, String pw) {
+	public boolean selectSummoner_info(String id, String pw) {
 		try {
 			String tmp_id = null;
 			String tmp_pw = null;
@@ -141,21 +168,22 @@ public class sql {
 				tmp_pw = rs.getString("password");
 			}
 			if(tmp_id == null) { 
-				return "LOGINFAIL"; 
+				rs.close();
+				return false; 
 			}
 			
-			if(tmp_id.equals(id) && tmp_pw.equals(pw)) {
+			if(tmp_id.equals(id) && tmp_pw.equals(pw)) {	// 성공일때
 				rs.close();
-				return id;
+				return true;
 			}
 			else {
 				rs.close();
-				return "LOGINFAIL"; 
+				return false; 
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "LOGINFAIL";
+			return false;
 		}
 	}
 	
