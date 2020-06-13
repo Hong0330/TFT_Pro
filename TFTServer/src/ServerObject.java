@@ -113,9 +113,11 @@ public class ServerObject extends Thread{
 						break;
 					}
 					// API통신 완료 후 JSON데이터 클라이언트 전송
-					dataOutputStream.writeUTF("CLEAR"); //실패 메시지
+					
+					dataOutputStream.writeUTF("CLEAR"); //성공 메시지
 					for(int i = 0 ; i < request.matchObject.size() ; i++) {
 						objectOutputStream.writeObject(request.matchObject.get(i));
+						System.out.println(i);
 					}			
 					
 					break;

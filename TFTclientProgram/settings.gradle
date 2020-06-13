@@ -1,2 +1,2 @@
-rootProject.name='TFTclientProgram'
 include ':app'
+rootProject.name = "TFT Stats2"

@@ -1,4 +1,4 @@
-package com.example.TFTclientPro;
+package com.example.tftstats2;
 
 import org.junit.Test;
 
