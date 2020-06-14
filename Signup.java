@@ -100,7 +100,7 @@ public class Signup extends AppCompatActivity{
                     }
                 }
 
-            } catch (IOException e) {
+            } catch (IOException e) { //에러 메시지 출력
                 e.printStackTrace();
             }
 
