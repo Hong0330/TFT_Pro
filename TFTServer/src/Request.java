@@ -16,7 +16,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Request extends Thread{
 	
-	String API_key = "RGAPI-2a2e5181-4b8c-4ed7-8213-6822b5a8212c";
+	String API_key = "RGAPI-57b4aec3-91d5-4095-a9fc-ea836af4cac1";
     String URL_01 = "https://kr.api.riotgames.com/tft/summoner/v1/summoners/by-name/";
     String URL_02 = "https://kr.api.riotgames.com/tft/league/v1/entries/by-summoner/";
     String URL_03 = "https://asia.api.riotgames.com/tft/match/v1/matches/by-puuid/";
@@ -32,7 +32,7 @@ public class Request extends Thread{
     
     ArrayList<ArrayList<String>> participantList = new ArrayList<ArrayList<String>>(); //참여자 닉네임
     ArrayList<String> nameTmp = new  ArrayList<String>();
-    int index = 1;
+    int index = 0;
     
    
     public boolean callSummonerDTO(String name) throws ParseException {
@@ -193,7 +193,7 @@ public class Request extends Thread{
                 
                 //�������� puuid�� �г����� ����
                 for(int i = 0 ; i < matchDto.get(matchDto.size()-1).getMetadata().getParticipants().size() ; i++) {
-                	if(callParticipantList(matchDto.get(matchDto.size()-1).getMetadata().getParticipants().get(i), matchDto.size()) == false) {
+                	if(callParticipantList(matchDto.get(matchDto.size()-1).getMetadata().getParticipants().get(i), matchDto.size()-1) == false) {
                 		System.out.println("오류발생");
                 		return false;
                 	}
@@ -236,6 +236,11 @@ public class Request extends Thread{
                 JSONObject jsonObject = (JSONObject)jsonParser.parse(receiveMsg);
                 
                 setParticipantList(jsonObject, number);
+                
+                //마지막 경기 닉네임 안넣어지는 오류 테스트 
+                if(nameTmp.size() == 8 && index == 9) {
+                	participantList.add(nameTmp);
+                }
                 
                 return true;
             }
@@ -315,7 +320,7 @@ public class Request extends Thread{
     	infoTmp.setGame_datetime(game_datetime);
     	infoTmp.setGame_length((float)game_length);
     	infoTmp.setGame_variation(game_variation);
-    	infoTmp.setGame_version(game_version);
+    	infoTmp.setGame_version(game_version);		
     	infoTmp.setQueue_id(queue_id);
     	infoTmp.setTft_set_number(tft_set_number);
     	
@@ -446,13 +451,14 @@ public class Request extends Thread{
     	//test.get(number-1).add((String) jsonObject.get("name"));
     	if(changeNum(number)) {
     		nameTmp.add((String) jsonObject.get("name"));
+    		System.out.println("number : " + number + " index : "+ index +  " name : " +(String) jsonObject.get("name"));
     	}
     	else {
     		participantList.add(nameTmp);
     		nameTmp = new ArrayList<String>();
     		nameTmp.add((String) jsonObject.get("name"));
     	}
-    	System.out.println("number : " + number + " name : " +(String) jsonObject.get("name"));
+    	//System.out.println("number : " + number + " name : " +(String) jsonObject.get("name"));
     }
     
     public boolean changeNum(int number) {
@@ -475,7 +481,7 @@ public class Request extends Thread{
         
         participantList = new ArrayList<ArrayList<String>>();
         nameTmp = new  ArrayList<String>();
-        index = 1;
+        index = 0;
     }
 }
 

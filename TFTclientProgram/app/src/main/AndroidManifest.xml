@@ -12,21 +12,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-<<<<<<< HEAD
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
             android:screenOrientation="portrait">
-=======
-        android:theme="@style/AppTheme">
-        <activity android:name=".ViewMenu"></activity>
-        <activity android:name=".DetailResult" />
-        <activity android:name=".StartMenu" />
-        <activity android:name=".JoinMenu" />
-        <activity android:name=".LoginMenu" />
-        <activity android:name=".MainActivity">
->>>>>>> refs/remotes/origin/master
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

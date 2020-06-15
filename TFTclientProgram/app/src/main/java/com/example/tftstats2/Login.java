@@ -16,6 +16,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
@@ -68,6 +70,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 DataInputStream dataInputStream = new DataInputStream(intputStream);
                 dataOutputStream.writeUTF(msg);
                 dataOutputStream.flush();
+
                 while(true) {
                     String recv = dataInputStream.readUTF();
                     if(recv.equals("CLEAR")) {  //로그인 성공

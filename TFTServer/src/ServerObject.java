@@ -1,11 +1,14 @@
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import org.json.simple.JSONObject;
@@ -49,6 +52,7 @@ public class ServerObject extends Thread{
 			dataOutputStream = new DataOutputStream(outputStream);
 			objectOutputStream = new ObjectOutputStream(outputStream);
 			
+			
 			while(true) {
 				String message = dataInputStream.readUTF();		//클라이언트에게 메시지를 받음
 				
@@ -84,6 +88,7 @@ public class ServerObject extends Thread{
 							//아이디 중복도 없고 존재하는 닉네임인경우
 							sql.insertSummoner_info(signup_id, signup_pw, signup_name); //데이터베이스에 입력한 이름들 저장							
 							dataOutputStream.writeUTF("CLEAR"); //회원가입 성공 메시지 전송
+							
 							break;
 						}
 					}
@@ -114,9 +119,33 @@ public class ServerObject extends Thread{
 					}
 					// API통신 완료 후 JSON데이터 클라이언트 전송
 					
+					
 					dataOutputStream.writeUTF("CLEAR"); //성공 메시지
+					
+					//검색한 데이터들 전송
+					System.out.println("매치리스트 갯수  : " + request.matchObject.size());
 					for(int i = 0 ; i < request.matchObject.size() ; i++) {
-						objectOutputStream.writeObject(request.matchObject.get(i));
+						//보내는 순서 해당매치 기본정보(소환사 닉네임포함) 이후 8명 정보 순서대로 
+						String match_id = request.matchDto.get(i).getMetadata().getMatch_id();
+						String game_length = Float.toString(request.matchDto.get(i).getInfo().getGame_length());
+						String game_variation = request.matchDto.get(i).getInfo().getGame_variation();
+						
+						//매치아이디 매치길이 은하계정보 닉네임들
+						sleep(50);
+						System.out.println("참여자 리스트 인덱스 사이즈 : " + request.participantList.size());
+						System.out.println("전송하는 매치 아이디 : " + match_id);
+						dataOutputStream.writeUTF(match_id + "$" + game_length + "$" + game_variation + "$" + request.participantList.get(i).get(0) + "$" + request.participantList.get(i).get(1) + "$" + request.participantList.get(i).get(2) + "$" + request.participantList.get(i).get(3) + "$" + request.participantList.get(i).get(4) + "$" + request.participantList.get(i).get(5) + "$" + request.participantList.get(i).get(6) + "$" + request.participantList.get(i).get(7));
+						
+						JSONObject tmp_info = (JSONObject) request.matchObject.get(i).get("info");
+						ArrayList<JSONObject> tmp_p = (ArrayList<JSONObject>) tmp_info.get("participants");
+						for(int j = 0 ; j < tmp_p.size() ; j++) {
+							//각 참여자의 데이터들 문자열로 전송
+							sleep(50);
+							dataOutputStream.writeUTF(tmp_p.get(j).toJSONString().trim());
+						}
+						
+						//dataOutputStream.writeUTF(request.matchObject.get(i).toJSONString().trim());	//문자열 통째로 보내기,String길이 때문에 잘림
+						
 						System.out.println(i);
 					}			
 					
