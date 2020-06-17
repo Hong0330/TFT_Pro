@@ -77,7 +77,7 @@ public class ServerObject extends Thread{
 					//실패시 
 					dataOutputStream.writeUTF("FAIL"); //로그인 실패 메시지		
 					break;
-				case "SINGUP":	//회원가입일때
+				case "SIGNUP":	//회원가입일때
 					//이때 데이터 들어오는 순서 아이디 비밀번호 닉네임
 					String signup_id = st.nextToken();
 					String signup_pw = st.nextToken();
@@ -86,9 +86,10 @@ public class ServerObject extends Thread{
 					if(request.callSummonerDTO(signup_name)) {	//콜해서 존재하는 닉네임인 경우
 						if(sql.check_signup(signup_id)) {		//DB에서 아이디 중복확인
 							//아이디 중복도 없고 존재하는 닉네임인경우
-							sql.insertSummoner_info(signup_id, signup_pw, signup_name); //데이터베이스에 입력한 이름들 저장							
+							sql.insertSummoner_info(signup_id, signup_pw, signup_name); //데이터베이스에 입력한 이름들 저장
+							sleep(1); //1초대기후 저장된 데이터들 전송
 							dataOutputStream.writeUTF("CLEAR"); //회원가입 성공 메시지 전송
-							
+							System.out.println("회원가입 완료");
 							break;
 						}
 					}
@@ -149,6 +150,7 @@ public class ServerObject extends Thread{
 						System.out.println(i);
 					}			
 					
+					dataOutputStream.writeUTF("CLEAR"); //성공 메시지
 					break;
 				case "SAVE":	//저장
 					break;

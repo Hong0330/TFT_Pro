@@ -16,7 +16,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Request extends Thread{
 	
-	String API_key = "RGAPI-57b4aec3-91d5-4095-a9fc-ea836af4cac1";
+	String API_key = "RGAPI-91b7e789-d903-4f19-8b56-3840d9f4cefd"; //API키의 사용기간이 하루밖에 주어지지않아 테스트하기 위해서 매일 바꿔야함 
     String URL_01 = "https://kr.api.riotgames.com/tft/summoner/v1/summoners/by-name/";
     String URL_02 = "https://kr.api.riotgames.com/tft/league/v1/entries/by-summoner/";
     String URL_03 = "https://asia.api.riotgames.com/tft/match/v1/matches/by-puuid/";

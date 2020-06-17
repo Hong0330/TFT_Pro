@@ -104,7 +104,7 @@ public class bottomview_ctr extends AppCompatActivity{
                     String name = search.getText().toString();
                     System.out.println(name);
                     msg = "SEARCH$" + name;
-                    Send send = new Send(netService.getSocket());
+                    bottomview_ctr.Send send = new bottomview_ctr.Send(netService.getSocket());
                     send.start();
                     return true;
                 }
@@ -165,6 +165,9 @@ public class bottomview_ctr extends AppCompatActivity{
                     System.out.println(tmp);
                     //현재 문자열 안짤리고 들어온상태 이후에 객체 설정 후 문자열로 전달받은 json데이터 파싱 후 저장
                     //처음 받아올 때 매치아이디, 게임길이, 은하계설정, 이후닉네임들
+                    if(tmp.equals("CLEAR")) { //완료 메시지 일경우
+                        break;
+                    }
                     Match match = new Match(); //매치를 저장할 인스턴스
 
                     StringTokenizer st = new StringTokenizer(tmp, "$"); //$기준으로 데이터자름
@@ -188,6 +191,7 @@ public class bottomview_ctr extends AppCompatActivity{
                     jsonCheck = true;
                     while(jsonCheck){
                         String json_tmp = dataInputStream.readUTF(); //String형으로 json데이터 받음
+                        System.out.println(json_tmp);
                         JSONObject jsonObject = new JSONObject(json_tmp);
 
                         Participant participant = new Participant(); //매치에 저장할 인스턴스
@@ -303,6 +307,8 @@ public class bottomview_ctr extends AppCompatActivity{
                     }
                     match.setParticipants(participants); //참여자 정보 삽입
                     matches.add(match); //매치 정보 삽입
+
+
                     //문자열로 보낼때
                     //
                     /*
@@ -313,6 +319,15 @@ public class bottomview_ctr extends AppCompatActivity{
                     System.out.println(jsonObjects.size());
                      */
                 }
+
+                //모든 정보를 받은 상태
+
+                //테트스출력
+                System.out.println(matches.get(0).getParticipants().get(0).getUser_name());
+                System.out.println(matches.get(1).getParticipants().get(0).getUser_name());
+                System.out.println(matches.get(2).getParticipants().get(0).getUser_name());
+                System.out.println(matches.get(3).getParticipants().get(0).getUser_name());
+
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
