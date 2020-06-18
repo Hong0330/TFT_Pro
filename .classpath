@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="TFTclientProgram/app/build/generated/source/buildConfig/debug"/>
 	<classpathentry kind="src" path="TFTclientProgram/app/src/androidTest/java"/>
 	<classpathentry kind="src" path="TFTclientProgram/app/src/main/java"/>
 	<classpathentry kind="src" path="TFTclientProgram/app/src/test/java"/>
 	<classpathentry kind="src" path="TFTServer/src"/>
-	<classpathentry kind="lib" path="json-simple-1.1.1.jar"/>
-	<classpathentry kind="lib" path="mysql-connector-java-8.0.20.jar"/>
-	<classpathentry kind="lib" path="TFTclientProgram/app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar"/>
-	<classpathentry kind="lib" path="TFTclientProgram/app/build/intermediates/merged_java_res/debug/out.jar"/>
-	<classpathentry kind="lib" path="TFTclientProgram/app/build/intermediates/project_dex_archive/debug/out/a919b8ae210336e77ffbc69c03ab0cbaa4664d0a5159676451eb254176235da0_0.jar"/>
-	<classpathentry kind="lib" path="TFTclientProgram/app/build/intermediates/project_dex_archive/debug/out/a919b8ae210336e77ffbc69c03ab0cbaa4664d0a5159676451eb254176235da0_1.jar"/>
-	<classpathentry kind="lib" path="TFTclientProgram/app/build/intermediates/project_dex_archive/debug/out/a919b8ae210336e77ffbc69c03ab0cbaa4664d0a5159676451eb254176235da0_2.jar"/>
-	<classpathentry kind="lib" path="TFTclientProgram/app/build/intermediates/project_dex_archive/debug/out/a919b8ae210336e77ffbc69c03ab0cbaa4664d0a5159676451eb254176235da0_3.jar"/>
-	<classpathentry kind="lib" path="TFTclientProgram/app/build/intermediates/project_dex_archive/debug/out/a919b8ae210336e77ffbc69c03ab0cbaa4664d0a5159676451eb254176235da0_4.jar"/>
-	<classpathentry kind="lib" path="TFTclientProgram/app/build/intermediates/project_dex_archive/debug/out/a919b8ae210336e77ffbc69c03ab0cbaa4664d0a5159676451eb254176235da0_5.jar"/>
-	<classpathentry kind="lib" path="TFTclientProgram/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry exported="true" kind="lib" path="json-simple-1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="mysql-connector-java-8.0.20.jar"/>
+	<classpathentry exported="true" kind="lib" path="TFTclientProgram/app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar"/>
+	<classpathentry exported="true" kind="lib" path="TFTclientProgram/app/build/intermediates/merged_java_res/debug/out.jar"/>
+	<classpathentry exported="true" kind="lib" path="TFTclientProgram/gradle/wrapper/gradle-wrapper.jar"/>
 	<classpathentry kind="output" path="TFTServer/bin"/>
 </classpath>
