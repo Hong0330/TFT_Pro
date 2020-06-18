@@ -20,16 +20,16 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.SEARCH"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity android:name=".Login"/>
         <activity android:name=".Signup"/>
-        <activity android:name=".bottomview_ctr"/>
         <activity android:name=".Activity_Toolbar"/>
-
+        <activity android:name=".Activity_Saved"/>
+        <activity android:name=".Activity_Profile"/>
         <service android:name=".NetService"></service>
     </application>
 

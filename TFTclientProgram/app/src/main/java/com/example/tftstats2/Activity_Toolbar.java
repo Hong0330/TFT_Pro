@@ -1,12 +1,15 @@
 package com.example.tftstats2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -24,14 +27,15 @@ public class Activity_Toolbar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_login);
 
-        // 추가된 소스, Toolbar를 생성한다.
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24);
+        actionBar.setTitle("소환사 검색");
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -46,28 +50,67 @@ public class Activity_Toolbar extends AppCompatActivity {
                 String title = menuItem.getTitle().toString();
 
                 if(id == R.id.account){
-                    Toast.makeText(context, title + ": 계정 정보를 확인합니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(
+                            getApplicationContext(), // 현재 화면의 제어권자
+                            Activity_Saved.class); // 다음 넘어갈 클래스 지정
+                    startActivity(intent); // 다음 화면으로 넘어간다
                 }
                 else if(id == R.id.setting){
-                    Toast.makeText(context, title + ": 설정 정보를 확인합니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(
+                            getApplicationContext(),
+                            Activity_Profile.class);
+                    startActivity(intent);
                 }
                 else if(id == R.id.logout){
-                    Toast.makeText(context, title + ": 로그아웃 시도중", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, title + ": 로그아웃 시도중", Toast.LENGTH_SHORT).show();//로그인 화면으로 돌아가도록 구현할 것
                 }
 
                 return true;
             }
         });
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{ // 왼쪽 상단 버튼 눌렀을 때
+        int id = item.getItemId();
+
+        switch (id){
+            case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
-            }
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+/*    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+// 검색 버튼 클릭했을 때 searchview 길이 꽉차게 늘려주기
+        SearchView searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+// 검색 버튼 클릭했을 때 searchview 에 힌트 추가
+        searchView.setQueryHint("소환사명 입력");
+        item_like.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(getApplicationContext(), sample.class); //넘겨주는 클래스 지정하여 사용할것
+                intent.putExtra("Count", 12);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+//검색버튼 눌렀을 때 이벤트 제어
+        if (id == R.id.action_search) {
+// To Do : 검색했을 때 쿼리 구현
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }*/
 }
