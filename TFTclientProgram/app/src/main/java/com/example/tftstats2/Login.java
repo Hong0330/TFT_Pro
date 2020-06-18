@@ -77,7 +77,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         check = true;
                         Intent intent = new Intent(
                                 getApplicationContext(), // 현재 화면의 제어권자
-                                bottomview_ctr.class); // 다음 넘어갈 클래스 지정
+                                Activity_Toolbar.class); // 다음 넘어갈 클래스 지정
                         startActivity(intent); // 다음 화면으로 넘어간다
                     }
                     else if(recv.equals("FAIL")){

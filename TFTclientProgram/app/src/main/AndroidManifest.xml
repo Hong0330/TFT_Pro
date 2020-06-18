@@ -28,6 +28,7 @@
         <activity android:name=".Login"/>
         <activity android:name=".Signup"/>
         <activity android:name=".bottomview_ctr"/>
+        <activity android:name=".Activity_Toolbar"/>
 
         <service android:name=".NetService"></service>
     </application>
