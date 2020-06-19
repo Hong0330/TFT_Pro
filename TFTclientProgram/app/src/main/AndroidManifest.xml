@@ -28,6 +28,8 @@
         <activity android:name=".Login"/>
         <activity android:name=".Signup"/>
         <activity android:name=".Activity_Toolbar"/>
+        <activity android:name=".Activity_Profile"/>
+        <activity android:name=".Activity_Saved"/>
         <service android:name=".NetService"></service>
     </application>
 
