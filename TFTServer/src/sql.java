@@ -5,7 +5,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class sql {
-	String url = "jdbc:mysql://localhost:3307/tft_data?serverTimezone=Asia/Seoul";
+	String url = "jdbc:mysql://localhost:3306/tft_data?serverTimezone=Asia/Seoul";
 	Connection con = null;
 	PreparedStatement pstatement = null;
 	

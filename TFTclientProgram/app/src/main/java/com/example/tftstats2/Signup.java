@@ -39,26 +39,18 @@ public class Signup extends AppCompatActivity{
         nick.setOnKeyListener(new View.OnKeyListener(){
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //엔터키를 눌렀을때
-                    String ID = id.getText().toString();
-                    String PW = pw.getText().toString();
-                    String Nick = nick.getText().toString();
-                    msg = "SIGNUP$" + ID + "$" + PW + "$" + Nick;
-                    Signup.Send send = new Signup.Send(netService.getSocket());
-                    send.start();
-                    return true;
-                }
-                /*
+                String ID = id.getText().toString();
+                String PW = pw.getText().toString();
+                String Nick = nick.getText().toString();
+
                 switch (keyCode){
                     case KeyEvent.KEYCODE_ENTER:
-                        msg = "SIGNUP$" + ID + "$" + PW + "$" + Nick;
+                        msg = "SINGUP$" + ID + "$" + PW + "$" + Nick;
                         System.out.println(msg);
-                        Send send = new Send(netService.getSocket());
+                        Signup.Send send = new Signup.Send(netService.getSocket());
                         send.start();
                         return true;
                 }
-                 */
                 return false;
             }
         });
@@ -81,23 +73,11 @@ public class Signup extends AppCompatActivity{
                 dataOutputStream.flush();
                 while(true) {
                     String recv = dataInputStream.readUTF();
-                    System.out.println(recv);
                     if(recv.equals("CLEAR")) {  //회원가입 성공
-                        System.out.println("clear");
-                        /*
                         Intent intent = new Intent(
                                 getApplicationContext(), // 현재 화면의 제어권자
                                 MainActivity.class); // 다음 넘어갈 클래스 지정
                         startActivity(intent); // 다음 화면으로 넘어간다
-                         */
-                        Handler handler = new Handler(Looper.getMainLooper());
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), "회원가입 성공", Toast.LENGTH_LONG).show();
-                                onBackPressed(); //뒤로가기
-                            }
-                        });
                     }
                     else if(recv.equals("FAIL")){
                         //에러 토스트 출력

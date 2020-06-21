@@ -69,6 +69,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
                 DataInputStream dataInputStream = new DataInputStream(intputStream);
                 dataOutputStream.writeUTF(msg);
+                System.out.println(msg);
                 dataOutputStream.flush();
 
                 while(true) {

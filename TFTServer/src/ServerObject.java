@@ -21,8 +21,8 @@ public class ServerObject extends Thread{
 	
 	Socket socket = null;
 	
-	ObjectOutputStream objectOutputStream;	//오브젝트 주고받는(JSON) 보조 스트림
-	ObjectInputStream objectInputStream;
+	//ObjectOutputStream objectOutputStream;	//오브젝트 주고받는(JSON) 보조 스트림
+	//ObjectInputStream objectInputStream;
 	
 	DataOutputStream dataOutputStream;		//바이트단위로 주고받는 보조 스트림
 	DataInputStream dataInputStream;
@@ -45,17 +45,17 @@ public class ServerObject extends Thread{
 			//인풋 스트림 설정
 			inputStream = socket.getInputStream();
 			dataInputStream = new DataInputStream(inputStream);
-			objectInputStream = new ObjectInputStream(inputStream);
+			//objectInputStream = new ObjectInputStream(inputStream);
 			
 			//아웃풋 스트림 설정
 			outputStream = socket.getOutputStream();
 			dataOutputStream = new DataOutputStream(outputStream);
-			objectOutputStream = new ObjectOutputStream(outputStream);
+			//objectOutputStream = new ObjectOutputStream(outputStream);
 			
 			
 			while(true) {
-				String message = dataInputStream.readUTF();		//클라이언트에게 메시지를 받음
-				
+				System.out.println("test");
+				String message = dataInputStream.readUTF();		//클라이언트에게 메시지를 받음		
 				System.out.println("클라이언트 : " + message);
 				
 				st = new StringTokenizer(message, "$");
@@ -122,6 +122,10 @@ public class ServerObject extends Thread{
 					
 					
 					dataOutputStream.writeUTF("CLEAR"); //성공 메시지
+					
+					//티어정보 전송
+					String strTier = request.leagueEntryDTO.getTier() + "$" + request.leagueEntryDTO.getRank() + "$" + request.leagueEntryDTO.getSummonerName() + "$" + request.leagueEntryDTO.getLeaguePoints() + "$" + request.leagueEntryDTO.getWins() + "$" + request.leagueEntryDTO.getLosses();
+					dataOutputStream.writeUTF(strTier);
 					
 					//검색한 데이터들 전송
 					System.out.println("매치리스트 갯수  : " + request.matchObject.size());

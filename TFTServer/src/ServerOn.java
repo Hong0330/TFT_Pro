@@ -24,14 +24,16 @@ public class ServerOn {
 			System.out.println("대기중.......");
 			try {
 				Sock = SSock.accept(); // 클라이언트가 접촉할 때까지 대기
+				ServerObject serverObject = new ServerObject(Sock);
+				serverObject.start();
 				System.out.println("클라이언트 접속");
 			}catch(IOException r) {}
 			System.out.println(Sock.getInetAddress() + " 에서 접속했습니다.");
 			
 			//TFTstart startPage = new TFTstart(Sock);
 			//startPage.start();
-			ServerObject serverObject = new ServerObject(Sock);
-			serverObject.start();
+			//ServerObject serverObject = new ServerObject(Sock);
+			//serverObject.start();
 		}
 	}
 	
