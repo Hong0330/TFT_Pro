@@ -75,10 +75,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 while(true) {
                     String recv = dataInputStream.readUTF();
                     if(recv.equals("CLEAR")) {  //로그인 성공
+                        String name = dataInputStream.readUTF(); //닉네임 받음
                         check = true;
                         Intent intent = new Intent(
                                 getApplicationContext(), // 현재 화면의 제어권자
                                 Activity_Toolbar.class); // 다음 넘어갈 클래스 지정
+                        intent.putExtra("name", name);
                         startActivity(intent); // 다음 화면으로 넘어간다
                     }
                     else if(recv.equals("FAIL")){

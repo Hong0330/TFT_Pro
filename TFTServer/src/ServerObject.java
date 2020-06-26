@@ -71,6 +71,8 @@ public class ServerObject extends Thread{
 						//존재하고 로그인작업
 						dataOutputStream.writeUTF("CLEAR"); //로그인성공 메시지 전송
 						sleep(1); //1초대기후 저장된 데이터들 전송
+						String name = sql.selectName(login_id);
+						dataOutputStream.writeUTF(name);
 						
 						break;
 					}

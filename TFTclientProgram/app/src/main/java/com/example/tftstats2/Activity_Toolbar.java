@@ -42,6 +42,7 @@ public class Activity_Toolbar extends AppCompatActivity {
     int index = 1;
     ArrayList<Match> matches = new ArrayList<Match>();
     LeagueEntry leagueEntry = new LeagueEntry();    //티어정보 저장
+    String TFT_name; //접속한 닉네임
 
 
     boolean update = false;  //데이터가 업데이트 되었는지 확인
@@ -60,6 +61,11 @@ public class Activity_Toolbar extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_login);
+
+        //닉네임 저장
+        Intent intent = getIntent();
+        TFT_name = intent.getExtras().getString("name");
+        System.out.println("접속한 닉네임 : " + TFT_name);
 
         // 추가된 소스, Toolbar를 생성한다.
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -92,9 +98,11 @@ public class Activity_Toolbar extends AppCompatActivity {
                 String title = menuItem.getTitle().toString();
 
                 if(id == R.id.saved){
+                    System.out.println("저장된 전적");
                     Intent intent = new Intent(
                             getApplicationContext(),
-                            Activity_Toolbar.class);
+                            Activity_Saved.class);
+                    intent.putExtra("name", TFT_name);
                     startActivity(intent);
                 }
                 else if(id == R.id.profile){

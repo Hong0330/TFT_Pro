@@ -187,6 +187,27 @@ public class sql {
 		}
 	}
 	
+	public String selectName(String id) { //닉네임 가져오는 메소드
+		String name = null;
+		try {
+			pstatement = con.prepareStatement(selectSummoner);
+			pstatement.setString(1, id);
+			
+			ResultSet rs = pstatement.executeQuery();
+			
+			while(rs.next()) {
+				name = rs.getString("TFT_name");
+			}
+			
+			return name;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return name;
+		}	
+	}
+	
 	public String selectMatch_info(String name, String match_id) {
 		try {
 			String tmp_match_id = null;
