@@ -362,7 +362,7 @@ public class sql {
 			pstatement.setString(1, match_id);
 			
 			if(pstatement.executeUpdate() > 0) {
-				return "����";
+				return "성공";
 			}
 			else {
 				return "DELETEUSERFAIL";
