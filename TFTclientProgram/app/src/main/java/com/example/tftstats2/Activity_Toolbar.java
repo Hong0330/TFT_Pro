@@ -3,10 +3,7 @@ package com.example.tftstats2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.os.Parcelable;
-=======
->>>>>>> refs/remotes/origin/master
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Menu;
