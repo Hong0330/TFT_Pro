@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -79,6 +80,17 @@ public class Activity_Toolbar extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         //init();
         //getData();
+        adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                System.out.println("세부 정보 클릭");
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        Activity_Details.class);
+                startActivity(intent);
+            }
+        });
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
@@ -168,7 +180,7 @@ public class Activity_Toolbar extends AppCompatActivity {
 
         if (id == R.id.action_search) {
             //검색했을 때 쿼리 구현
-            getData();
+
             System.out.println("검색 완료");
             return true;
         }
