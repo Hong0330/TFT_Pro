@@ -5,7 +5,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class sql {
-	String url = "jdbc:mysql://localhost:3307/tft_data?serverTimezone=Asia/Seoul";
+	String url = "jdbc:mysql://localhost:3306/tft_data?serverTimezone=Asia/Seoul";
 	Connection con = null;
 	PreparedStatement pstatement = null;
 	
@@ -185,6 +185,27 @@ public class sql {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public String selectName(String id) { //닉네임 가져오는 메소드
+		String name = null;
+		try {
+			pstatement = con.prepareStatement(selectSummoner);
+			pstatement.setString(1, id);
+			
+			ResultSet rs = pstatement.executeQuery();
+			
+			while(rs.next()) {
+				name = rs.getString("TFT_name");
+			}
+			
+			return name;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return name;
+		}	
 	}
 	
 	public String selectMatch_info(String name, String match_id) {

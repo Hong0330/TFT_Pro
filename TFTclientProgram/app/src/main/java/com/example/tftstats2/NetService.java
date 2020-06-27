@@ -32,11 +32,11 @@ public class NetService extends Service {
 
     OutputStream outputStream;
     DataOutputStream dataOutputStream;
-    ObjectOutputStream objectOutputStream;
+    //ObjectOutputStream objectOutputStream;
 
     InputStream inputStream;
     DataInputStream dataInputStream;
-    ObjectInputStream objectInputStream;
+    //ObjectInputStream objectInputStream;
 
     IBinder mBinder = new MyBinder(); // 외부의 액티비티에서 데이터에 접근하기 위한 바인더
 
@@ -80,25 +80,27 @@ public class NetService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
+    /*
     public void send(String str) throws IOException {
         dataOutputStream.writeUTF(str);
-        //dataOutputStream.flush();
+        dataOutputStream.flush();
     }
+    */
 
     class ClientThread extends Thread {
 
         public void run() {
             try {
                 System.out.println("test");
-                socket = new Socket("192.168.1.188", 9999);
+                socket = new Socket("192.168.0.20", 9999);
                 System.out.println("성공");
                 outputStream  = socket.getOutputStream();
                 dataOutputStream = new DataOutputStream(outputStream);
-                objectOutputStream = new ObjectOutputStream(outputStream);
+                //objectOutputStream = new ObjectOutputStream(outputStream);
 
                 inputStream = socket.getInputStream();
                 dataInputStream = new DataInputStream(inputStream);
-                objectInputStream = new ObjectInputStream(inputStream);
+                //objectInputStream = new ObjectInputStream(inputStream);
 
 
 

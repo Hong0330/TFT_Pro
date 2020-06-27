@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Request extends Thread{
 	
-	String API_key = "RGAPI-91b7e789-d903-4f19-8b56-3840d9f4cefd"; //API키의 사용기간이 하루밖에 주어지지않아 테스트하기 위해서 매일 바꿔야함 
+	String API_key = "RGAPI-722aab02-158f-4d0e-afa8-62fb36e4fd07"; //API키의 사용기간이 하루밖에 주어지지않아 테스트하기 위해서 매일 바꿔야함 
     String URL_01 = "https://kr.api.riotgames.com/tft/summoner/v1/summoners/by-name/";
     String URL_02 = "https://kr.api.riotgames.com/tft/league/v1/entries/by-summoner/";
     String URL_03 = "https://asia.api.riotgames.com/tft/match/v1/matches/by-puuid/";
@@ -239,6 +240,7 @@ public class Request extends Thread{
                 
                 //마지막 경기 닉네임 안넣어지는 오류 테스트 
                 if(nameTmp.size() == 8 && index == 9) {
+                	System.out.println("테스트");
                 	participantList.add(nameTmp);
                 }
                 
@@ -311,14 +313,20 @@ public class Request extends Thread{
     	InfoDto infoTmp = new InfoDto();
     	JSONObject infoObject = (JSONObject) jsonObject.get("info");
     	long game_datetime = (long) infoObject.get("game_datetime");
-    	double game_length = (double) infoObject.get("game_length");
+
+    	//double game_length = (double) infoObject.get("game_length");
+    	double game_length = Double.parseDouble(String.valueOf(infoObject.get("game_length")));
+    	
     	String game_variation = (String)infoObject.get("game_variation"); // 은하계 정보
     	String game_version = (String) infoObject.get("game_version");   
     	int queue_id = ((Long)infoObject.get("queue_id")).intValue();
     	int tft_set_number = ((Long)infoObject.get("tft_set_number")).intValue();
     	
     	infoTmp.setGame_datetime(game_datetime);
+    	
     	infoTmp.setGame_length((float)game_length);
+
+    	
     	infoTmp.setGame_variation(game_variation);
     	infoTmp.setGame_version(game_version);		
     	infoTmp.setQueue_id(queue_id);
@@ -353,7 +361,10 @@ public class Request extends Thread{
     		int placement = ((Long)jsonTmp.get("placement")).intValue();
     		int players_eliminated = ((Long)jsonTmp.get("players_eliminated")).intValue();
     		String puuid = (String) jsonTmp.get("puuid");
+    		
     		double time_eliminated = (double) jsonTmp.get("time_eliminated");
+    		//double time_eliminated = Double.parseDouble(String.valueOf(infoObject.get("time_eliminated")));
+    		
     		int total_damage_to_players = ((Long)jsonTmp.get("total_damage_to_players")).intValue();
     		
     		p.setCompanion(companion);
