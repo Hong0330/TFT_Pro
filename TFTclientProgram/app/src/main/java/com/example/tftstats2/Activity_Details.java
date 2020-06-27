@@ -51,7 +51,7 @@ public class Activity_Details extends AppCompatActivity {
     }
 
     private void init() {
-        RecyclerView recyclerView = findViewById(R.id.saved_match_list);
+        RecyclerView recyclerView = findViewById(R.id.match_detail);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
