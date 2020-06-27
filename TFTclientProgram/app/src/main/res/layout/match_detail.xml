@@ -33,7 +33,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/saved_match_list"
+            android:id="@+id/match_detail"
             android:layout_width="match_parent"
             android:layout_height="666dp"
             android:layout_below="@+id/view_toolbar"

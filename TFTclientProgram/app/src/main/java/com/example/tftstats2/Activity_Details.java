@@ -1,34 +1,28 @@
 package com.example.tftstats2;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Activity_Saved extends AppCompatActivity {
+public class Activity_Details extends AppCompatActivity {
 
-    private DrawerLayout mDrawerLayout;
-    private Context context = this;
     private RecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.saved_data);
+        setContentView(R.layout.match_detail);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         RecyclerView recyclerView = findViewById(R.id.saved_match_list);
-
         setSupportActionBar(myToolbar);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -37,11 +31,12 @@ public class Activity_Saved extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         init();
         getData();
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("저장한 매치");
+        actionBar.setTitle("내 정보");
     }
 
     @Override
