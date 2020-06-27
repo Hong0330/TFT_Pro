@@ -49,6 +49,7 @@ public class Activity_Toolbar extends AppCompatActivity {
 
 
     boolean update = false;  //데이터가 업데이트 되었는지 확인
+    boolean searchFail = false; //전적 검색 실패 시 true
 
     private DrawerLayout mDrawerLayout;
     private Context context = this;
@@ -159,7 +160,7 @@ public class Activity_Toolbar extends AppCompatActivity {
                         System.out.println("업데이트");
                         update = false;
                         break;
-                    }else{
+                    }else if(searchFail){
                         //검색 실패 토스트 출력
                         Handler handler = new Handler(Looper.getMainLooper());
                         handler.post(new Runnable() {
@@ -169,6 +170,7 @@ public class Activity_Toolbar extends AppCompatActivity {
                             }
                         });
                         System.out.println("업데이트 실패");
+                        searchFail = false;
                         break;
                     }
                 }
@@ -327,8 +329,9 @@ public class Activity_Toolbar extends AppCompatActivity {
                     if(msg.equals("CLEAR")) { //검색성공
                         System.out.println("검색성공");
                         break;
-                    }else{ // 검색 실패 시 스레드 벗어나기
+                    }else { // 검색 실패 시 스레드 벗어나기
                         System.out.println("검색실패");
+                        searchFail = true;
                         return;
                     }
                 }
