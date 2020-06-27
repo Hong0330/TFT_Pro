@@ -3,6 +3,8 @@ package com.example.tftstats2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -157,6 +159,16 @@ public class Activity_Toolbar extends AppCompatActivity {
                         System.out.println("업데이트");
                         update = false;
                         break;
+                    }else{
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "검색 실패", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        System.out.println("업데이트 실패");
+                        break;
                     }
                 }
                 return true;
@@ -181,7 +193,7 @@ public class Activity_Toolbar extends AppCompatActivity {
         if (id == R.id.action_search) {
             //검색했을 때 쿼리 구현
 
-            System.out.println("검색 완료");
+            System.out.println("검색 완료1");
             return true;
         }
 
@@ -302,6 +314,7 @@ public class Activity_Toolbar extends AppCompatActivity {
         public void run() {
             OutputStream outputStream  = null;
             InputStream intputStream = null;
+            System.out.println("스레드 동작합니다.");
             try {
                 outputStream = socket.getOutputStream();
                 intputStream = socket.getInputStream();
@@ -314,8 +327,12 @@ public class Activity_Toolbar extends AppCompatActivity {
                     if(msg.equals("CLEAR")) { //검색성공
                         System.out.println("검색성공");
                         break;
+                    }else{
+                        System.out.println("검색실패");
+                        return;
                     }
                 }
+                System.out.println("검색동작한다고?");
 
                 String msg = dataInputStream.readUTF();
                 StringTokenizer strt = new StringTokenizer(msg , "$");

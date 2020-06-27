@@ -45,7 +45,7 @@ public class Signup extends AppCompatActivity{
 
                 switch (keyCode){
                     case KeyEvent.KEYCODE_ENTER:
-                        msg = "SINGUP$" + ID + "$" + PW + "$" + Nick;
+                        msg = "SIGNUP$" + ID + "$" + PW + "$" + Nick;
                         System.out.println(msg);
                         Signup.Send send = new Signup.Send(netService.getSocket());
                         send.start();

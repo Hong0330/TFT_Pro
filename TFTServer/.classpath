@@ -6,7 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/gjku5561/git/TFT_Pro/json-simple-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/gjku5561/git/TFT_Pro/mysql-connector-java-8.0.20.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pc1/Desktop/Projectgg/TFT_Pro/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pc1/Desktop/Projectgg/TFT_Pro/mysql-connector-java-8.0.20.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
