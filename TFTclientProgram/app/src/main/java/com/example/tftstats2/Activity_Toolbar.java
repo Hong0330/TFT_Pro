@@ -120,7 +120,7 @@ public class Activity_Toolbar extends AppCompatActivity {
                 else if(id == R.id.profile){
                     Intent intent = new Intent(
                             getApplicationContext(),
-                            Activity_Toolbar.class);
+                            Activity_Profile.class);
                     startActivity(intent);
                 }
                 else if(id == R.id.logout){
