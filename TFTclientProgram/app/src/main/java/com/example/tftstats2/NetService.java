@@ -92,7 +92,7 @@ public class NetService extends Service {
         public void run() {
             try {
                 System.out.println("test");
-                socket = new Socket("192.168.0.20", 9999);
+                socket = new Socket("192.168.1.188", 9999);
                 System.out.println("성공");
                 outputStream  = socket.getOutputStream();
                 dataOutputStream = new DataOutputStream(outputStream);

@@ -1,10 +1,12 @@
 package com.example.tftstats2;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,6 +47,9 @@ public class Activity_Details extends AppCompatActivity {
             case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
                 finish();
                 return true;
+            }
+            case R.id.action_save:{
+
             }
         }
         return super.onOptionsItemSelected(item);
