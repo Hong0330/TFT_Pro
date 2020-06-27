@@ -3,6 +3,8 @@ package com.example.tftstats2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -156,6 +158,17 @@ public class Activity_Toolbar extends AppCompatActivity {
                         //adapter.notifyDataSetChanged();
                         System.out.println("업데이트");
                         update = false;
+                        break;
+                    }else{
+                        //검색 실패 토스트 출력
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "검색 실패", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        System.out.println("업데이트 실패");
                         break;
                     }
                 }
@@ -314,6 +327,9 @@ public class Activity_Toolbar extends AppCompatActivity {
                     if(msg.equals("CLEAR")) { //검색성공
                         System.out.println("검색성공");
                         break;
+                    }else{ // 검색 실패 시 스레드 벗어나기
+                        System.out.println("검색실패");
+                        return;
                     }
                 }
 
