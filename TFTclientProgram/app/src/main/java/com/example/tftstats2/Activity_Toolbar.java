@@ -3,7 +3,10 @@ package com.example.tftstats2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.os.Parcelable;
+=======
+>>>>>>> refs/remotes/origin/master
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Menu;
@@ -52,6 +55,7 @@ public class Activity_Toolbar extends AppCompatActivity {
 
 
     boolean update = false;  //데이터가 업데이트 되었는지 확인
+    boolean searchFail = false; //전적 검색 실패 시 true
 
     private DrawerLayout mDrawerLayout;
     private Context context = this;
@@ -244,6 +248,18 @@ public class Activity_Toolbar extends AppCompatActivity {
                         });
                         update = false;
                         break;
+                    }else if(searchFail){
+                        //검색 실패 토스트 출력
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "검색 실패", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        System.out.println("업데이트 실패");
+                        searchFail = false;
+                        break;
                     }
                 }
                 return true;
@@ -401,6 +417,10 @@ public class Activity_Toolbar extends AppCompatActivity {
                     if(msg.equals("CLEAR")) { //검색성공
                         System.out.println("검색성공");
                         break;
+                    }else { // 검색 실패 시 스레드 벗어나기
+                        System.out.println("검색실패");
+                        searchFail = true;
+                        return;
                     }
                 }
 
