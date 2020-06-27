@@ -5,6 +5,5 @@
     <item android:id="@+id/action_save"
         android:title="Saved"
         android:icon="@drawable/ic_baseline_save_alt_24"
-        app:showAsAction="always"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+        app:showAsAction="always" />
 </menu>

@@ -3,6 +3,7 @@ package com.example.tftstats2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
@@ -51,6 +52,12 @@ public class Activity_Details extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("상세 정보");
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.detail_menu, menu);
+        return true;
     }
 
     @Override
