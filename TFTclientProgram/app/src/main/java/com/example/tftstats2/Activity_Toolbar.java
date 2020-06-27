@@ -3,9 +3,14 @@ package com.example.tftstats2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -87,6 +92,13 @@ public class Activity_Toolbar extends AppCompatActivity {
                 Intent intent = new Intent(
                         getApplicationContext(),
                         Activity_Details.class);
+                //이곳에서 세부 전적 데이터 인텐트로 넘김
+                Data data  = adapter.getItem(pos);
+                //System.out.println("클릭한 뷰의 pos : " + data.getPos() + "pos : " + pos);
+                intent.putExtra("match_id" , matches.get(pos).getMatch_id());
+                intent.putExtra("game_length" , matches.get(pos).getGame_length());
+                intent.putExtra("game_variation" , matches.get(pos).getGame_variation());
+                intent.putExtra("participants" , matches.get(pos).getParticipants());
                 startActivity(intent);
             }
         });
@@ -155,6 +167,81 @@ public class Activity_Toolbar extends AppCompatActivity {
                         getData();
                         //adapter.notifyDataSetChanged();
                         System.out.println("업데이트");
+                        //
+                        //이미지 뷰 3 = 티어이미지
+                        //textView2 = 닉네임
+                        //textView3 = 티어
+                        //textView10 = 랭크
+                        //textView11 = 리그 포인트
+                        //textView12 = 승리
+                        //textView13 = 패배
+                        //textView14 = 평균등수
+
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                //닉네임 업데이트
+                                TextView nameView = findViewById(R.id.textView2);
+                                nameView.setText(leagueEntry.getName());
+                                //티어 업데이트
+                                TextView tierView = findViewById(R.id.textView3);
+                                ImageView tierImage = findViewById(R.id.imageView3);
+                                switch (leagueEntry.getTier()) {
+                                    case "IRON":
+                                        tierImage.setImageResource(R.drawable.iron);
+                                        tierView.setText("아이언");
+                                        break;
+                                    case "BRONZE":
+                                        tierImage.setImageResource(R.drawable.bronze);
+                                        tierView.setText("브론즈");
+                                        break;
+                                    case "SILVER":
+                                        tierImage.setImageResource(R.drawable.silver);
+                                        tierView.setText("실버");
+                                        break;
+                                    case "GOLD":
+                                        tierImage.setImageResource(R.drawable.gold);
+                                        tierView.setText("골드");
+                                        break;
+                                    case "PLATINUM":
+                                        tierImage.setImageResource(R.drawable.platinum);
+                                        tierView.setText("플래티넘");
+                                        break;
+                                    case "DIAMOND":
+                                        tierImage.setImageResource(R.drawable.diamond);
+                                        tierView.setText("다이아몬드");
+                                        break;
+                                    case "MASTER":
+                                        tierImage.setImageResource(R.drawable.master);
+                                        tierView.setText("마스터");
+                                        break;
+                                    case "GRANDMASTER":
+                                        tierImage.setImageResource(R.drawable.grandmaster);
+                                        tierView.setText("그랜드마스터");
+                                        break;
+                                    case "CHALLENGER":
+                                        tierImage.setImageResource(R.drawable.challenger);
+                                        tierView.setText("챌린저");
+                                        break;
+                                }
+                                //랭크 업데이트
+                                TextView rankView = findViewById(R.id.textView10);
+                                rankView.setText("티어 "+leagueEntry.getRank());
+                                //리그포인트 업데이트
+                                TextView lpView = findViewById(R.id.textView11);
+                                lpView.setText(String.valueOf(leagueEntry.getLeaguePoints()) + " LP");
+                                //승리 업데이트
+                                TextView winsView = findViewById(R.id.textView12);
+                                winsView.setText(String.valueOf("승      리 : " + leagueEntry.getWins()));
+                                //패배 업데이트
+                                TextView lossesView = findViewById(R.id.textView13);
+                                lossesView.setText(String.valueOf("패      배 : " + leagueEntry.getLosses()));
+                                //평균등수 업데이트
+                                TextView aView = findViewById(R.id.textView14);
+
+                            }
+                        });
                         update = false;
                         break;
                     }

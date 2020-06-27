@@ -1,8 +1,9 @@
 package com.example.tftstats2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Participant {
+public class Participant implements Serializable {
     private String user_name;
     private int gold_left;
     private int last_round;

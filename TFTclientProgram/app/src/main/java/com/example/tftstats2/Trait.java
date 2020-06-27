@@ -1,6 +1,8 @@
 package com.example.tftstats2;
 
-public class Trait {
+import java.io.Serializable;
+
+public class Trait implements Serializable {
     private String trait_name;
     private int num_units;
     private int tier_current;

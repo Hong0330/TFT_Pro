@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -19,10 +20,10 @@ public class sql {
 	String unit_info = "insert into unit_info(match_id, user_name, unit_no, character_id, tier, item_1, item_2, item_3) values(?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	String selectSummoner = "select * from summoner_info where ID=?";
-	String selectMatch = "select * from match_info where TFT_name=? and match_id=?";
-	String selectUser = "select * from user_info where match_id=? and user_name=?";
-	String selectTrait = "select * from trait_info where match_id=? and user_name=? and trait_no=?";
-	String selectUnit = "select * from unit_info where match_id=? and user_name=? and unit_no=?";
+	String selectMatch = "select * from match_info where TFT_name=?";
+	String selectUser = "select * from user_info where match_id=?";
+	String selectTrait = "select * from trait_info where match_id=? and user_name=?";
+	String selectUnit = "select * from unit_info where match_id=? and user_name=?";
 	
 	String deleteSummoner = "delete from summoner_info where ID=?";
 	String deleteMatch = "delete from match_info where TFT_name=? and match_id=?";
@@ -208,15 +209,17 @@ public class sql {
 		}	
 	}
 	
-	public String selectMatch_info(String name, String match_id) {
+	public ArrayList<String> selectMatch_info(String name) {
+		ArrayList<String> match = new ArrayList<String>();
+		
 		try {
+			
 			String tmp_match_id = null;
 			float tmp_game_length = 0;
 			String tmp_game_variation = null;
 			
 			pstatement = con.prepareStatement(selectMatch);
 			pstatement.setString(1, name);
-			pstatement.setString(2, match_id);
 			
 			ResultSet rs = pstatement.executeQuery();
 			
@@ -224,18 +227,24 @@ public class sql {
 				tmp_match_id = rs.getString("match_id");
 				tmp_game_length = rs.getFloat("game_length");
 				tmp_game_variation = rs.getString("game_variation");
+				if(tmp_match_id.equals(null)) {
+					rs.close();
+					return match;
+				}
+				match.add(tmp_match_id + "$" + tmp_game_length + "$" + tmp_game_variation);
 			}
-			System.out.println("match_id : " + tmp_match_id + " game_length : " + tmp_game_length + " game_variation : " + tmp_game_variation);
+			//System.out.println("match_id : " + tmp_match_id + " game_length : " + tmp_game_length + " game_variation : " + tmp_game_variation);
 			rs.close();
-			return "성공";
+			return match;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "MATCHFAIL";
+			return match;
 		}
 	}
 	
-	public String selectUser_info(String match_id, String user_name) {
+	public ArrayList<String> selectUser_info(String match_id) {
+		ArrayList<String> user = new ArrayList<String>();
 		try {
 			String tmp_match_id = null;
 			String tmp_user_name = null;
@@ -246,7 +255,6 @@ public class sql {
 			
 			pstatement = con.prepareStatement(selectUser);
 			pstatement.setString(1, match_id);
-			pstatement.setString(2, user_name);
 			
 			ResultSet rs = pstatement.executeQuery();
 			
@@ -257,18 +265,26 @@ public class sql {
 				tmp_last_round = rs.getInt("last_round");
 				tmp_level = rs.getInt("level");
 				tmp_player_eliminated = rs.getInt("player_eliminated");
+				
+				if(tmp_match_id.equals(null)) {
+					rs.close();
+					return user;
+				}
+				
+				user.add( tmp_match_id + "$" + tmp_user_name +  "$" + tmp_gold_left + "$" + tmp_last_round + "$" + tmp_level + "$" + tmp_player_eliminated );
 			}
-			System.out.println("match_id : " + tmp_match_id + " user_name : " + tmp_user_name + " gold_left : " + tmp_gold_left + " last_round : " + tmp_last_round + " level : " + tmp_level + " player_eliminated : " + tmp_player_eliminated );
+			//System.out.println("match_id : " + tmp_match_id + " user_name : " + tmp_user_name + " gold_left : " + tmp_gold_left + " last_round : " + tmp_last_round + " level : " + tmp_level + " player_eliminated : " + tmp_player_eliminated );
 			rs.close();
-			return "성공";
+			return user;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "USERFAIL";
+			return user;
 		}
 	}
 	
-	public String selectTrait_info(String match_id, String user_name, int trait_no) {
+	public ArrayList<String> selectTrait_info(String match_id, String user_name) {
+		ArrayList<String> trait = new ArrayList<String>();
 		try {
 			String tmp_match_id = null;
 			String tmp_user_name = null;
@@ -280,7 +296,6 @@ public class sql {
 			pstatement = con.prepareStatement(selectTrait);
 			pstatement.setString(1, match_id);
 			pstatement.setString(2, user_name);
-			pstatement.setInt(3, trait_no);
 			
 			ResultSet rs = pstatement.executeQuery();
 			
@@ -291,18 +306,27 @@ public class sql {
 				tmp_trait_name = rs.getString("trait_name");
 				tmp_num_units = rs.getInt("num_units");
 				tmp_tier_current = rs.getInt("tier_current");
+				if(tmp_match_id.equals(null)) {
+					rs.close();
+					return trait;
+					
+				}
+				if(tmp_tier_current > 0) {
+					trait.add(tmp_match_id + "$" + tmp_user_name + "$" + tmp_trait_name);
+				}
 			}
-			System.out.println("match_id : " + tmp_match_id + " user_name : " + tmp_user_name + " trait_no : " + tmp_trait_no + " trait_name : " + tmp_trait_name + " num_units : " + tmp_num_units + " tier_current : " + tmp_tier_current );
+			//System.out.println("match_id : " + tmp_match_id + " user_name : " + tmp_user_name + " trait_no : " + tmp_trait_no + " trait_name : " + tmp_trait_name + " num_units : " + tmp_num_units + " tier_current : " + tmp_tier_current );
 			rs.close();
-			return "성공";
+			return trait;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "TRAITFAIL";
+			return trait;
 		}
 	}
 	
-	public String selectUnit_info(String match_id, String user_name, int unit_no) {
+	public ArrayList<String> selectUnit_info(String match_id, String user_name) {
+		ArrayList<String> unit = new ArrayList<String>();
 		try {
 			String tmp_match_id = null;
 			String tmp_user_name = null;
@@ -316,7 +340,6 @@ public class sql {
 			pstatement = con.prepareStatement(selectUnit);
 			pstatement.setString(1, match_id);
 			pstatement.setString(2, user_name);
-			pstatement.setInt(3, unit_no);
 			
 			ResultSet rs = pstatement.executeQuery();
 			
@@ -329,14 +352,19 @@ public class sql {
 				tmp_item_1 = rs.getInt("item_1");
 				tmp_item_2 = rs.getInt("item_2");
 				tmp_item_3 = rs.getInt("item_3");
+				if(tmp_match_id.equals(null)) {
+					rs.close();
+					return unit;
+				}
+				unit.add(tmp_match_id + "$" + tmp_user_name + "$" + tmp_character_id + "$" + tmp_tier + "$" + tmp_item_1 + "$" + tmp_item_2 + "$" + tmp_item_3);
 			}
 			System.out.println("match_id : " + tmp_match_id + " user_name : " + tmp_user_name + " unit_no : " + tmp_unit_no + " character_id : " + tmp_character_id + " tier : " + tmp_tier + " item_1 : " + tmp_item_1 + " item_2 : " + tmp_item_2 + " item_3 : " + tmp_item_3);
 			rs.close();
-			return "성공";
+			return unit;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "UNITFAIL";
+			return unit;
 		}
 	}
 	

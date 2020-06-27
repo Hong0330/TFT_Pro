@@ -1,5 +1,8 @@
 package com.example.tftstats2;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 public class Match {
@@ -50,4 +53,5 @@ public class Match {
     public void setParticipants(ArrayList<Participant> participants) {
         this.participants = participants;
     }
+
 }

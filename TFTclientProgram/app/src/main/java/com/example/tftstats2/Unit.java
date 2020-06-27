@@ -1,6 +1,8 @@
 package com.example.tftstats2;
 
-public class Unit {
+import java.io.Serializable;
+
+public class Unit implements Serializable {
     private String character_id;
     private int tier;
     private int item_1;
