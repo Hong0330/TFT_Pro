@@ -9,8 +9,16 @@ public class Data {
     private int resId;
     private ArrayList<String> trait = new ArrayList<String>();
     private ArrayList<String> unit = new ArrayList<String>();
-
+    private int round;
     private int pos;
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round){
+        this.round = round;
+    }
 
     public int getPos() {
         return pos;

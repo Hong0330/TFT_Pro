@@ -1,7 +1,9 @@
 package com.example.tftstats2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
@@ -16,7 +18,7 @@ import java.util.List;
 
 public class Activity_Details extends AppCompatActivity {
 
-    private RecyclerAdapter adapter;
+    private DetailsAdapter adapter;
 
     private ArrayList<Participant> participants = new ArrayList<Participant>();
 
@@ -28,10 +30,11 @@ public class Activity_Details extends AppCompatActivity {
         //상세정보 데이터 받음
         Intent intent = getIntent();
         participants = (ArrayList<Participant>) intent.getSerializableExtra("participants");
-        System.out.println(participants.get(0).getUser_name());
-        System.out.println(participants.get(1).getUser_name());
+        System.out.println(participants.get(0).getUnits().size());
+        System.out.println(participants.get(1).getUnits().size());
         System.out.println(participants.get(2).getUser_name());
         System.out.println(participants.get(3).getUser_name());
+
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         RecyclerView recyclerView = findViewById(R.id.match_detail);
@@ -39,7 +42,7 @@ public class Activity_Details extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new RecyclerAdapter();
+        adapter = new DetailsAdapter();
         recyclerView.setAdapter(adapter);
         init();
         getData();
@@ -68,11 +71,43 @@ public class Activity_Details extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new RecyclerAdapter();
+        adapter = new DetailsAdapter();
         recyclerView.setAdapter(adapter);
     }
 
     private void getData() {
+        for(int i = 0 ; i < participants.size() ; i++){
+            Data data = new Data();
+            System.out.println(participants.get(i).getUser_name());
+
+            data.setTitle(participants.get(i).getUser_name());
+            data.setContent(String.valueOf(participants.get(i).getLevel()));
+            data.setRound(participants.get(i).getLast_round());
+
+            ArrayList<String> trait = new ArrayList<String>();
+            for(int t = 0 ; t < participants.get(i).getTraits().size() ; t++) {
+                String tmp = participants.get(i).getTraits().get(t).getTrait_name();
+                tmp = tmp.replaceAll("Set3_" , "");
+                trait.add(tmp);
+            }
+
+            ArrayList<String> unit = new ArrayList<String>();
+            for(int u = 0 ; u < participants.get(i).getUnits().size() ; u++) {
+                String tmp = participants.get(i).getUnits().get(u).getCharacter_id();
+                System.out.println("유닛 이름 : " +tmp);
+                unit.add(tmp);
+            }
+            data.setTrait(trait);
+            data.setUnit(unit);
+
+            // 각 값이 들어간 data를 adapter에 추가합니다.
+            System.out.println("데이터 추가");
+            adapter.addItem(data);
+        }
+        // adapter의 값이 변경되었다는 것을 알려줍니다.
+        adapter.notifyDataSetChanged();
+
+        /*
         // 임의의 데이터
         List<String> listTitle = Arrays.asList("아리", "애니", "애쉬", "아우렐리온 솔", "소나", "소라카", "신드라", "샤코",
                 "쉔", "다리우스", "피오라", "피즈", "갱플랭크", "가렌", "오공");
@@ -123,6 +158,8 @@ public class Activity_Details extends AppCompatActivity {
 
         // adapter의 값이 변경되었다는 것을 알려줍니다.
         adapter.notifyDataSetChanged();
+
+         */
     }
 
 }

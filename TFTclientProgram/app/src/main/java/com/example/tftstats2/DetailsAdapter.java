@@ -67,36 +67,57 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ItemView
         private ImageView imageView15;
         private ImageView imageView16;
 
+        private ImageView imageView17;
+        private ImageView imageView18;
+        private ImageView imageView19;
+        private ImageView imageView20;
+
+        private ImageView imageView21;
+        private ImageView imageView22;
+        private ImageView imageView23;
+        private ImageView imageView24;
+
 
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textView7 = itemView.findViewById(R.id.textView7);
-            textView8 = itemView.findViewById(R.id.textView8);
-            textView9 = itemView.findViewById(R.id.textView9);
+            textView7 = itemView.findViewById(R.id.textView4);
+            textView8 = itemView.findViewById(R.id.textView5);
+            textView9 = itemView.findViewById(R.id.textView6);
 
             //시너지
-            imageView1 = itemView.findViewById(R.id.imageView60);
-            imageView2 = itemView.findViewById(R.id.imageView61);
-            imageView3 = itemView.findViewById(R.id.imageView62);
-            imageView4 = itemView.findViewById(R.id.imageView63);
+            imageView1 = itemView.findViewById(R.id.imageView43);
+            imageView2 = itemView.findViewById(R.id.imageView45);
+            imageView3 = itemView.findViewById(R.id.imageView44);
+            imageView4 = itemView.findViewById(R.id.imageView46);
 
-            imageView5 = itemView.findViewById(R.id.imageView64);
-            imageView6= itemView.findViewById(R.id.imageView65);
-            imageView7 = itemView.findViewById(R.id.imageView66);
-            imageView8 = itemView.findViewById(R.id.imageView67);
+            imageView5 = itemView.findViewById(R.id.imageView47);
+            imageView6= itemView.findViewById(R.id.imageView48);
+            imageView7 = itemView.findViewById(R.id.imageView50);
+            imageView8 = itemView.findViewById(R.id.imageView51);
+
+
+            imageView9 = itemView.findViewById(R.id.imageView5);
+            imageView10 = itemView.findViewById(R.id.imageView4);
+            imageView11 = itemView.findViewById(R.id.imageView6);
+            imageView12 = itemView.findViewById(R.id.imageView7);
 
             //유닛
-            imageView9 = itemView.findViewById(R.id.imageView68);
-            imageView10 = itemView.findViewById(R.id.imageView69);
-            imageView11 = itemView.findViewById(R.id.imageView70);
-            imageView12 = itemView.findViewById(R.id.imageView71);
+            imageView13 = itemView.findViewById(R.id.imageView52);
+            imageView14 = itemView.findViewById(R.id.imageView53);
+            imageView15 = itemView.findViewById(R.id.imageView54);
+            imageView16 = itemView.findViewById(R.id.imageView55);
 
-            imageView13 = itemView.findViewById(R.id.imageView72);
-            imageView14 = itemView.findViewById(R.id.imageView73);
-            imageView15 = itemView.findViewById(R.id.imageView74);
-            imageView16 = itemView.findViewById(R.id.imageView75);
+            imageView17 = itemView.findViewById(R.id.imageView56);
+            imageView18 = itemView.findViewById(R.id.imageView57);
+            imageView19 = itemView.findViewById(R.id.imageView58);
+            imageView20 = itemView.findViewById(R.id.imageView59);
+
+            imageView21 = itemView.findViewById(R.id.imageView8);
+            imageView22 = itemView.findViewById(R.id.imageView9);
+            imageView23 = itemView.findViewById(R.id.imageView10);
+            imageView24 = itemView.findViewById(R.id.imageView11);
         }
 
         public void onBind(Data data) {
@@ -105,8 +126,8 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ItemView
 
             //textView7.setText(data.getTitle());
             //textView9.setText("테스트용");
-            textView7.setText("지금");
-            textView8.setText("테스트");
+            textView7.setText(data.getTitle());
+            textView8.setText("레벨 : " + data.getContent());
             textView9.setText("화면");
 
             for(int i = 0 ; i < data.getTrait().size() ; i++) {
@@ -498,54 +519,74 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ItemView
 
             switch (trait.size()) {
                 case 0:
-                    imageView1.setImageResource(R.drawable.transparency);
-                    imageView2.setImageResource(R.drawable.transparency);
-                    imageView3.setImageResource(R.drawable.transparency);
-                    imageView4.setImageResource(R.drawable.transparency);
-                    imageView5.setImageResource(R.drawable.transparency);
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView1.setImageResource(R.drawable.void_trait);
+                    imageView2.setImageResource(R.drawable.void_trait);
+                    imageView3.setImageResource(R.drawable.void_trait);
+                    imageView4.setImageResource(R.drawable.void_trait);
+                    imageView5.setImageResource(R.drawable.void_trait);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
+                    imageView9.setImageResource(R.drawable.void_trait);
+                    imageView10.setImageResource(R.drawable.void_trait);
+                    imageView11.setImageResource(R.drawable.void_trait);
+                    imageView12.setImageResource(R.drawable.void_trait);
                     break;
                 case 1:
                     imageView1.setImageResource(trait.get(0));
-                    imageView2.setImageResource(R.drawable.transparency);
-                    imageView3.setImageResource(R.drawable.transparency);
-                    imageView4.setImageResource(R.drawable.transparency);
-                    imageView5.setImageResource(R.drawable.transparency);
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView2.setImageResource(R.drawable.void_trait);
+                    imageView3.setImageResource(R.drawable.void_trait);
+                    imageView4.setImageResource(R.drawable.void_trait);
+                    imageView5.setImageResource(R.drawable.void_trait);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
+                    imageView9.setImageResource(R.drawable.void_trait);
+                    imageView10.setImageResource(R.drawable.void_trait);
+                    imageView11.setImageResource(R.drawable.void_trait);
+                    imageView12.setImageResource(R.drawable.void_trait);
                     break;
                 case 2:
                     imageView1.setImageResource(trait.get(0));
                     imageView2.setImageResource(trait.get(1));
-                    imageView3.setImageResource(R.drawable.transparency);
-                    imageView4.setImageResource(R.drawable.transparency);
-                    imageView5.setImageResource(R.drawable.transparency);
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView3.setImageResource(R.drawable.void_trait);
+                    imageView4.setImageResource(R.drawable.void_trait);
+                    imageView5.setImageResource(R.drawable.void_trait);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
+                    imageView9.setImageResource(R.drawable.void_trait);
+                    imageView10.setImageResource(R.drawable.void_trait);
+                    imageView11.setImageResource(R.drawable.void_trait);
+                    imageView12.setImageResource(R.drawable.void_trait);
                     break;
                 case 3:
                     imageView1.setImageResource(trait.get(0));
                     imageView2.setImageResource(trait.get(1));
                     imageView3.setImageResource(trait.get(2));
-                    imageView4.setImageResource(R.drawable.transparency);
-                    imageView5.setImageResource(R.drawable.transparency);
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView4.setImageResource(R.drawable.void_trait);
+                    imageView5.setImageResource(R.drawable.void_trait);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
+                    imageView9.setImageResource(R.drawable.void_trait);
+                    imageView10.setImageResource(R.drawable.void_trait);
+                    imageView11.setImageResource(R.drawable.void_trait);
+                    imageView12.setImageResource(R.drawable.void_trait);
                     break;
                 case 4:
                     imageView1.setImageResource(trait.get(0));
                     imageView2.setImageResource(trait.get(1));
                     imageView3.setImageResource(trait.get(2));
                     imageView4.setImageResource(trait.get(3));
-                    imageView5.setImageResource(R.drawable.transparency);
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView5.setImageResource(R.drawable.void_trait);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
+                    imageView9.setImageResource(R.drawable.void_trait);
+                    imageView10.setImageResource(R.drawable.void_trait);
+                    imageView11.setImageResource(R.drawable.void_trait);
+                    imageView12.setImageResource(R.drawable.void_trait);
                     break;
                 case 5:
                     imageView1.setImageResource(trait.get(0));
@@ -553,9 +594,13 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ItemView
                     imageView3.setImageResource(trait.get(2));
                     imageView4.setImageResource(trait.get(3));
                     imageView5.setImageResource(trait.get(4));
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
+                    imageView9.setImageResource(R.drawable.void_trait);
+                    imageView10.setImageResource(R.drawable.void_trait);
+                    imageView11.setImageResource(R.drawable.void_trait);
+                    imageView12.setImageResource(R.drawable.void_trait);
                     break;
                 case 6:
                     imageView1.setImageResource(trait.get(0));
@@ -564,8 +609,12 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ItemView
                     imageView4.setImageResource(trait.get(3));
                     imageView5.setImageResource(trait.get(4));
                     imageView6.setImageResource(trait.get(5));
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
+                    imageView9.setImageResource(R.drawable.void_trait);
+                    imageView10.setImageResource(R.drawable.void_trait);
+                    imageView11.setImageResource(R.drawable.void_trait);
+                    imageView12.setImageResource(R.drawable.void_trait);
                     break;
                 case 7:
                     imageView1.setImageResource(trait.get(0));
@@ -575,9 +624,13 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ItemView
                     imageView5.setImageResource(trait.get(4));
                     imageView6.setImageResource(trait.get(5));
                     imageView7.setImageResource(trait.get(6));
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView8.setImageResource(R.drawable.void_trait);
+                    imageView9.setImageResource(R.drawable.void_trait);
+                    imageView10.setImageResource(R.drawable.void_trait);
+                    imageView11.setImageResource(R.drawable.void_trait);
+                    imageView12.setImageResource(R.drawable.void_trait);
                     break;
-                default: //8개이상
+                case 8:
                     imageView1.setImageResource(trait.get(0));
                     imageView2.setImageResource(trait.get(1));
                     imageView3.setImageResource(trait.get(2));
@@ -586,99 +639,254 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ItemView
                     imageView6.setImageResource(trait.get(5));
                     imageView7.setImageResource(trait.get(6));
                     imageView8.setImageResource(trait.get(7));
+                    imageView9.setImageResource(R.drawable.void_trait);
+                    imageView10.setImageResource(R.drawable.void_trait);
+                    imageView11.setImageResource(R.drawable.void_trait);
+                    imageView12.setImageResource(R.drawable.void_trait);
+                    break;
+
+                case 9:
+                    imageView1.setImageResource(trait.get(0));
+                    imageView2.setImageResource(trait.get(1));
+                    imageView3.setImageResource(trait.get(2));
+                    imageView4.setImageResource(trait.get(3));
+                    imageView5.setImageResource(trait.get(4));
+                    imageView6.setImageResource(trait.get(5));
+                    imageView7.setImageResource(trait.get(6));
+                    imageView8.setImageResource(trait.get(7));
+                    imageView9.setImageResource(trait.get(8));
+                    imageView10.setImageResource(R.drawable.void_trait);
+                    imageView11.setImageResource(R.drawable.void_trait);
+                    imageView12.setImageResource(R.drawable.void_trait);
+                    break;
+
+                case 10:
+                    imageView1.setImageResource(trait.get(0));
+                    imageView2.setImageResource(trait.get(1));
+                    imageView3.setImageResource(trait.get(2));
+                    imageView4.setImageResource(trait.get(3));
+                    imageView5.setImageResource(trait.get(4));
+                    imageView6.setImageResource(trait.get(5));
+                    imageView7.setImageResource(trait.get(6));
+                    imageView8.setImageResource(trait.get(7));
+                    imageView9.setImageResource(trait.get(8));
+                    imageView10.setImageResource(trait.get(9));
+                    imageView11.setImageResource(R.drawable.void_trait);
+                    imageView12.setImageResource(R.drawable.void_trait);
+                    break;
+
+                case 11 :
+                    imageView1.setImageResource(trait.get(0));
+                    imageView2.setImageResource(trait.get(1));
+                    imageView3.setImageResource(trait.get(2));
+                    imageView4.setImageResource(trait.get(3));
+                    imageView5.setImageResource(trait.get(4));
+                    imageView6.setImageResource(trait.get(5));
+                    imageView7.setImageResource(trait.get(6));
+                    imageView8.setImageResource(trait.get(7));
+                    imageView9.setImageResource(trait.get(8));
+                    imageView10.setImageResource(trait.get(9));
+                    imageView11.setImageResource(trait.get(10));
+                    imageView12.setImageResource(R.drawable.void_trait);
+
+                default:
+                    imageView1.setImageResource(trait.get(0));
+                    imageView2.setImageResource(trait.get(1));
+                    imageView3.setImageResource(trait.get(2));
+                    imageView4.setImageResource(trait.get(3));
+                    imageView5.setImageResource(trait.get(4));
+                    imageView6.setImageResource(trait.get(5));
+                    imageView7.setImageResource(trait.get(6));
+                    imageView8.setImageResource(trait.get(7));
+                    imageView9.setImageResource(trait.get(8));
+                    imageView10.setImageResource(trait.get(9));
+                    imageView11.setImageResource(trait.get(10));
+                    imageView12.setImageResource(trait.get(11));
                     break;
             }
 
             switch (unit.size()) {
                 case 0:
-                    imageView9.setImageResource(R.drawable.transparency);
-                    imageView10.setImageResource(R.drawable.transparency);
-                    imageView11.setImageResource(R.drawable.transparency);
-                    imageView12.setImageResource(R.drawable.transparency);
-                    imageView13.setImageResource(R.drawable.transparency);
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView13.setImageResource(R.drawable.void_unit);
+                    imageView14.setImageResource(R.drawable.void_unit);
+                    imageView15.setImageResource(R.drawable.void_unit);
+                    imageView16.setImageResource(R.drawable.void_unit);
+                    imageView17.setImageResource(R.drawable.void_unit);
+                    imageView18.setImageResource(R.drawable.void_unit);
+                    imageView19.setImageResource(R.drawable.void_unit);
+                    imageView20.setImageResource(R.drawable.void_unit);
+                    imageView21.setImageResource(R.drawable.void_unit);
+                    imageView22.setImageResource(R.drawable.void_unit);
+                    imageView23.setImageResource(R.drawable.void_unit);
+                    imageView24.setImageResource(R.drawable.void_unit);
                     break;
                 case 1:
-                    imageView9.setImageResource(unit.get(0));
-                    imageView10.setImageResource(R.drawable.transparency);
-                    imageView11.setImageResource(R.drawable.transparency);
-                    imageView12.setImageResource(R.drawable.transparency);
-                    imageView13.setImageResource(R.drawable.transparency);
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(R.drawable.void_unit);
+                    imageView15.setImageResource(R.drawable.void_unit);
+                    imageView16.setImageResource(R.drawable.void_unit);
+                    imageView17.setImageResource(R.drawable.void_unit);
+                    imageView18.setImageResource(R.drawable.void_unit);
+                    imageView19.setImageResource(R.drawable.void_unit);
+                    imageView20.setImageResource(R.drawable.void_unit);
+                    imageView21.setImageResource(R.drawable.void_unit);
+                    imageView22.setImageResource(R.drawable.void_unit);
+                    imageView23.setImageResource(R.drawable.void_unit);
+                    imageView24.setImageResource(R.drawable.void_unit);
                     break;
                 case 2:
-                    imageView9.setImageResource(unit.get(0));
-                    imageView10.setImageResource(unit.get(1));
-                    imageView11.setImageResource(R.drawable.transparency);
-                    imageView12.setImageResource(R.drawable.transparency);
-                    imageView13.setImageResource(R.drawable.transparency);
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(unit.get(1));
+                    imageView15.setImageResource(R.drawable.void_unit);
+                    imageView16.setImageResource(R.drawable.void_unit);
+                    imageView17.setImageResource(R.drawable.void_unit);
+                    imageView18.setImageResource(R.drawable.void_unit);
+                    imageView19.setImageResource(R.drawable.void_unit);
+                    imageView20.setImageResource(R.drawable.void_unit);
+                    imageView21.setImageResource(R.drawable.void_unit);
+                    imageView22.setImageResource(R.drawable.void_unit);
+                    imageView23.setImageResource(R.drawable.void_unit);
+                    imageView24.setImageResource(R.drawable.void_unit);
                     break;
                 case 3:
-                    imageView9.setImageResource(unit.get(0));
-                    imageView10.setImageResource(unit.get(1));
-                    imageView11.setImageResource(unit.get(2));
-                    imageView12.setImageResource(R.drawable.transparency);
-                    imageView13.setImageResource(R.drawable.transparency);
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(unit.get(1));
+                    imageView15.setImageResource(unit.get(2));
+                    imageView16.setImageResource(R.drawable.void_unit);
+                    imageView17.setImageResource(R.drawable.void_unit);
+                    imageView18.setImageResource(R.drawable.void_unit);
+                    imageView19.setImageResource(R.drawable.void_unit);
+                    imageView20.setImageResource(R.drawable.void_unit);
+                    imageView21.setImageResource(R.drawable.void_unit);
+                    imageView22.setImageResource(R.drawable.void_unit);
+                    imageView23.setImageResource(R.drawable.void_unit);
+                    imageView24.setImageResource(R.drawable.void_unit);
                     break;
                 case 4:
-                    imageView9.setImageResource(unit.get(0));
-                    imageView10.setImageResource(unit.get(1));
-                    imageView11.setImageResource(unit.get(2));
-                    imageView12.setImageResource(unit.get(3));
-                    imageView13.setImageResource(R.drawable.transparency);
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(unit.get(1));
+                    imageView15.setImageResource(unit.get(2));
+                    imageView16.setImageResource(unit.get(3));
+                    imageView17.setImageResource(R.drawable.void_unit);
+                    imageView18.setImageResource(R.drawable.void_unit);
+                    imageView19.setImageResource(R.drawable.void_unit);
+                    imageView20.setImageResource(R.drawable.void_unit);
+                    imageView21.setImageResource(R.drawable.void_unit);
+                    imageView22.setImageResource(R.drawable.void_unit);
+                    imageView23.setImageResource(R.drawable.void_unit);
+                    imageView24.setImageResource(R.drawable.void_unit);
                     break;
                 case 5:
-                    imageView9.setImageResource(unit.get(0));
-                    imageView10.setImageResource(unit.get(1));
-                    imageView11.setImageResource(unit.get(2));
-                    imageView12.setImageResource(unit.get(3));
-                    imageView13.setImageResource(unit.get(4));
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(unit.get(1));
+                    imageView15.setImageResource(unit.get(2));
+                    imageView16.setImageResource(unit.get(3));
+                    imageView17.setImageResource(unit.get(4));
+                    imageView18.setImageResource(R.drawable.void_unit);
+                    imageView19.setImageResource(R.drawable.void_unit);
+                    imageView20.setImageResource(R.drawable.void_unit);
+                    imageView21.setImageResource(R.drawable.void_unit);
+                    imageView22.setImageResource(R.drawable.void_unit);
+                    imageView23.setImageResource(R.drawable.void_unit);
+                    imageView24.setImageResource(R.drawable.void_unit);
                     break;
                 case 6:
-                    imageView9.setImageResource(unit.get(0));
-                    imageView10.setImageResource(unit.get(1));
-                    imageView11.setImageResource(unit.get(2));
-                    imageView12.setImageResource(unit.get(3));
-                    imageView13.setImageResource(unit.get(4));
-                    imageView14.setImageResource(unit.get(5));
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(unit.get(1));
+                    imageView15.setImageResource(unit.get(2));
+                    imageView16.setImageResource(unit.get(3));
+                    imageView17.setImageResource(unit.get(4));
+                    imageView18.setImageResource(unit.get(5));
+                    imageView19.setImageResource(R.drawable.void_unit);
+                    imageView20.setImageResource(R.drawable.void_unit);
+                    imageView21.setImageResource(R.drawable.void_unit);
+                    imageView22.setImageResource(R.drawable.void_unit);
+                    imageView23.setImageResource(R.drawable.void_unit);
+                    imageView24.setImageResource(R.drawable.void_unit);
                     break;
                 case 7:
-                    imageView9.setImageResource(unit.get(0));
-                    imageView2.setImageResource(unit.get(1));
-                    imageView3.setImageResource(unit.get(2));
-                    imageView4.setImageResource(unit.get(3));
-                    imageView5.setImageResource(unit.get(4));
-                    imageView6.setImageResource(unit.get(5));
-                    imageView7.setImageResource(unit.get(6));
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(unit.get(1));
+                    imageView15.setImageResource(unit.get(2));
+                    imageView16.setImageResource(unit.get(3));
+                    imageView17.setImageResource(unit.get(4));
+                    imageView18.setImageResource(unit.get(5));
+                    imageView19.setImageResource(unit.get(6));
+                    imageView20.setImageResource(R.drawable.void_unit);
+                    imageView21.setImageResource(R.drawable.void_unit);
+                    imageView22.setImageResource(R.drawable.void_unit);
+                    imageView23.setImageResource(R.drawable.void_unit);
+                    imageView24.setImageResource(R.drawable.void_unit);
                     break;
-                default: //8개이상
-                    imageView9.setImageResource(unit.get(0));
-                    imageView10.setImageResource(unit.get(1));
-                    imageView11.setImageResource(unit.get(2));
-                    imageView12.setImageResource(unit.get(3));
-                    imageView13.setImageResource(unit.get(4));
-                    imageView14.setImageResource(unit.get(5));
-                    imageView15.setImageResource(unit.get(6));
-                    imageView16.setImageResource(unit.get(7));
+                case 8:
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(unit.get(1));
+                    imageView15.setImageResource(unit.get(2));
+                    imageView16.setImageResource(unit.get(3));
+                    imageView17.setImageResource(unit.get(4));
+                    imageView18.setImageResource(unit.get(5));
+                    imageView19.setImageResource(unit.get(6));
+                    imageView20.setImageResource(unit.get(7));
+                    imageView21.setImageResource(R.drawable.void_unit);
+                    imageView22.setImageResource(R.drawable.void_unit);
+                    imageView23.setImageResource(R.drawable.void_unit);
+                    imageView24.setImageResource(R.drawable.void_unit);
+                    break;
+                case 9:
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(unit.get(1));
+                    imageView15.setImageResource(unit.get(2));
+                    imageView16.setImageResource(unit.get(3));
+                    imageView17.setImageResource(unit.get(4));
+                    imageView18.setImageResource(unit.get(5));
+                    imageView19.setImageResource(unit.get(6));
+                    imageView20.setImageResource(unit.get(7));
+                    imageView21.setImageResource(unit.get(8));
+                    imageView22.setImageResource(R.drawable.void_unit);
+                    imageView23.setImageResource(R.drawable.void_unit);
+                    imageView24.setImageResource(R.drawable.void_unit);
+                    break;
+                case 10:
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(unit.get(1));
+                    imageView15.setImageResource(unit.get(2));
+                    imageView16.setImageResource(unit.get(3));
+                    imageView17.setImageResource(unit.get(4));
+                    imageView18.setImageResource(unit.get(5));
+                    imageView19.setImageResource(unit.get(6));
+                    imageView20.setImageResource(unit.get(7));
+                    imageView21.setImageResource(unit.get(8));
+                    imageView22.setImageResource(unit.get(9));
+                    imageView23.setImageResource(R.drawable.void_unit);
+                    imageView24.setImageResource(R.drawable.void_unit);
+                    break;
+                case 11:
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(unit.get(1));
+                    imageView15.setImageResource(unit.get(2));
+                    imageView16.setImageResource(unit.get(3));
+                    imageView17.setImageResource(unit.get(4));
+                    imageView18.setImageResource(unit.get(5));
+                    imageView19.setImageResource(unit.get(6));
+                    imageView20.setImageResource(unit.get(7));
+                    imageView21.setImageResource(unit.get(8));
+                    imageView22.setImageResource(unit.get(9));
+                    imageView23.setImageResource(unit.get(10));
+                    imageView24.setImageResource(R.drawable.void_unit);
+                    break;
+                default:
+                    imageView13.setImageResource(unit.get(0));
+                    imageView14.setImageResource(unit.get(1));
+                    imageView15.setImageResource(unit.get(2));
+                    imageView16.setImageResource(unit.get(3));
+                    imageView17.setImageResource(unit.get(4));
+                    imageView18.setImageResource(unit.get(5));
+                    imageView19.setImageResource(unit.get(6));
+                    imageView20.setImageResource(unit.get(7));
+                    imageView21.setImageResource(unit.get(8));
+                    imageView22.setImageResource(unit.get(9));
+                    imageView23.setImageResource(unit.get(10));
+                    imageView24.setImageResource(unit.get(11));
                     break;
             }
         }
