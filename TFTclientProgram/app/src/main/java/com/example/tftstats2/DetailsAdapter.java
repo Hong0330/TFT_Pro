@@ -1,35 +1,17 @@
 package com.example.tftstats2;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder> {
-
-    String number;
-
-    public String getNumber() {
-        return number;
-    }
-
-    // 리스너 인터페이스
-    public interface OnItemClickListener {
-        void onItemClick(View v, int pos);
-    }
-
-    private OnItemClickListener mListener = null;
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.mListener = listener;
-    }
-
+public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ItemViewHolder> {
     // adapter에 들어갈 list 입니다.
     private ArrayList<Data> listData = new ArrayList<>();
 
@@ -38,15 +20,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // LayoutInflater를 이용하여 전 단계에서 만들었던 item.xml을 inflate 시킵니다.
         // return 인자는 ViewHolder 입니다.
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_items, parent, false);
         return new ItemViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
-        System.out.println("해당하는 postition : " + position);
-        listData.get(position).setPos(position); //해당하는 pos 저장
         holder.onBind(listData.get(position));
     }
 
@@ -61,21 +41,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         listData.add(data);
     }
 
-    public Data getItem(int pos) {
-        return listData.get(pos);
-    }
-
-    // RecyclerView의 핵심인 ViewHolder 입니다.
-    // 여기서 subView를 setting 해줍니다.
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        ViewGroup layout = (ViewGroup) itemView.findViewById(R.id.LayoutArea);
-
-
-
-        private TextView textView4;
-        private TextView textView5;
-        private TextView textView6;
+        private TextView textView7;
+        private TextView textView8;
+        private TextView textView9;
 
         private ImageView imageView1;
         private ImageView imageView2;
@@ -97,84 +67,47 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         private ImageView imageView15;
         private ImageView imageView16;
 
-        ItemViewHolder(View itemView) {
+
+
+        public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textView4 = itemView.findViewById(R.id.textView4);
-            textView5 = itemView.findViewById(R.id.textView5);
-            textView6 = itemView.findViewById(R.id.textView6);
+            textView7 = itemView.findViewById(R.id.textView7);
+            textView8 = itemView.findViewById(R.id.textView8);
+            textView9 = itemView.findViewById(R.id.textView9);
 
             //시너지
-            imageView1 = itemView.findViewById(R.id.imageView43);
-            imageView2 = itemView.findViewById(R.id.imageView44);
-            imageView3 = itemView.findViewById(R.id.imageView45);
-            imageView4 = itemView.findViewById(R.id.imageView46);
+            imageView1 = itemView.findViewById(R.id.imageView60);
+            imageView2 = itemView.findViewById(R.id.imageView61);
+            imageView3 = itemView.findViewById(R.id.imageView62);
+            imageView4 = itemView.findViewById(R.id.imageView63);
 
-            imageView5 = itemView.findViewById(R.id.imageView47);
-            imageView6= itemView.findViewById(R.id.imageView48);
-            imageView7 = itemView.findViewById(R.id.imageView50);
-            imageView8 = itemView.findViewById(R.id.imageView51);
+            imageView5 = itemView.findViewById(R.id.imageView64);
+            imageView6= itemView.findViewById(R.id.imageView65);
+            imageView7 = itemView.findViewById(R.id.imageView66);
+            imageView8 = itemView.findViewById(R.id.imageView67);
 
             //유닛
-            imageView9 = itemView.findViewById(R.id.imageView52);
-            imageView10 = itemView.findViewById(R.id.imageView53);
-            imageView11 = itemView.findViewById(R.id.imageView54);
-            imageView12 = itemView.findViewById(R.id.imageView55);
+            imageView9 = itemView.findViewById(R.id.imageView68);
+            imageView10 = itemView.findViewById(R.id.imageView69);
+            imageView11 = itemView.findViewById(R.id.imageView70);
+            imageView12 = itemView.findViewById(R.id.imageView71);
 
-            imageView13 = itemView.findViewById(R.id.imageView56);
-            imageView14 = itemView.findViewById(R.id.imageView57);
-            imageView15 = itemView.findViewById(R.id.imageView58);
-            imageView16 = itemView.findViewById(R.id.imageView59);
-
-            //클릭이벤트
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        if(mListener != null){
-                            mListener.onItemClick(v,pos);
-                        }
-                    }
-                }
-            });
+            imageView13 = itemView.findViewById(R.id.imageView72);
+            imageView14 = itemView.findViewById(R.id.imageView73);
+            imageView15 = itemView.findViewById(R.id.imageView74);
+            imageView16 = itemView.findViewById(R.id.imageView75);
         }
 
-        void onBind(Data data) {
+        public void onBind(Data data) {
             ArrayList<Integer> trait = new ArrayList<Integer>();
             ArrayList<Integer> unit = new ArrayList<Integer>();
-            textView4.setText(data.getTitle());
-            number = data.getTitle();
-            textView6.setText("테스트용");
-            switch (data.getContent()) {
-                case "TFT3_GameVariation_LittlerLegends":
-                    textView5.setText("꼬꼬마 전설이");
-                    break;
-                case "TFT3_GameVariation_BigLittleLegends":
-                    textView5.setText("성장기 전설이");
-                    break;
-                case "TFT3_GameVariation_Bonanza":
-                    textView5.setText("보물창고");
-                    break;
-                case "TFT3_GameVariation_FreeNeekos":
-                    textView5.setText("니코의 세계");
-                    break;
-                case "TFT3_GameVariation_FreeRerolls":
-                    textView5.setText("교환의 장");
-                    break;
-                case "TFT3_GameVariation_MidGameFoN":
-                    textView5.setText("초밀도 은하계");
-                    break;
-                case "TFT3_GameVariation_None":
-                    textView5.setText("기본 은하계");
-                    break;
-                case "TFT3_GameVariation_StartingItems":
-                    textView5.setText("우주 무기고");
-                    break;
-                case "TFT3_GameVariation_TwoStarCarousels":
-                    textView5.setText("성단");
-                    break;
-            }
+
+            //textView7.setText(data.getTitle());
+            //textView9.setText("테스트용");
+            textView7.setText("지금");
+            textView8.setText("테스트");
+            textView9.setText("화면");
 
             for(int i = 0 ; i < data.getTrait().size() ; i++) {
                 int tmp = 0;
@@ -361,7 +294,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                         tmp = R.drawable.graves;
                         unit.add(tmp);
                         break;
-                    case "TFT3_Illaoi":
+                    case "TFT3_Illoai":
                         tmp = R.drawable.illaoi;
                         unit.add(tmp);
                         break;
@@ -409,7 +342,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                         tmp = R.drawable.khazix;
                         unit.add(tmp);
                         break;
-                    case "TFT3_KogMaw":
+                    case "TFT3_Kogmaw":
                         tmp = R.drawable.kogmaw;
                         unit.add(tmp);
                         break;
@@ -563,12 +496,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             System.out.println("시너지 개수 : " + trait.size());
             System.out.println("유닛 개수 : " + unit.size());
 
-            //바꾸는 것 테스트
-            //imageView1.setImageResource(trait.get(0));
-            //imageView1.setImageResource(trait.get(1));
-
-            //imageView9.setImageResource(unit.get(0));
-            //imageView9.setImageResource(unit.get(1));
             switch (trait.size()) {
                 case 0:
                     imageView1.setImageResource(R.drawable.transparency);
@@ -735,13 +662,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     break;
                 case 7:
                     imageView9.setImageResource(unit.get(0));
-                    imageView10.setImageResource(unit.get(1));
-                    imageView11.setImageResource(unit.get(2));
-                    imageView12.setImageResource(unit.get(3));
-                    imageView13.setImageResource(unit.get(4));
-                    imageView14.setImageResource(unit.get(5));
-                    imageView15.setImageResource(unit.get(6));
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView2.setImageResource(unit.get(1));
+                    imageView3.setImageResource(unit.get(2));
+                    imageView4.setImageResource(unit.get(3));
+                    imageView5.setImageResource(unit.get(4));
+                    imageView6.setImageResource(unit.get(5));
+                    imageView7.setImageResource(unit.get(6));
+                    imageView8.setImageResource(R.drawable.transparency);
                     break;
                 default: //8개이상
                     imageView9.setImageResource(unit.get(0));
@@ -754,7 +681,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     imageView16.setImageResource(unit.get(7));
                     break;
             }
-
         }
     }
 }

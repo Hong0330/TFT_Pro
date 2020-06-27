@@ -1,5 +1,6 @@
 package com.example.tftstats2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,10 +20,20 @@ public class Activity_Details extends AppCompatActivity {
 
     private RecyclerAdapter adapter;
 
+    private ArrayList<Participant> participants = new ArrayList<Participant>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.match_detail);
+
+        //상세정보 데이터 받음
+        Intent intent = getIntent();
+        participants = (ArrayList<Participant>) intent.getSerializableExtra("participants");
+        System.out.println(participants.get(0).getUser_name());
+        System.out.println(participants.get(1).getUser_name());
+        System.out.println(participants.get(2).getUser_name());
+        System.out.println(participants.get(3).getUser_name());
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         RecyclerView recyclerView = findViewById(R.id.match_detail);

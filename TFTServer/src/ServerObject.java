@@ -158,6 +158,87 @@ public class ServerObject extends Thread{
 					
 					dataOutputStream.writeUTF("CLEAR"); //성공 메시지
 					break;
+				case "CALL": //저장된 데이터 불러오기
+					String call_name = st.nextToken();
+					ArrayList<String> call_match = sql.selectMatch_info(call_name);
+					if(call_match.size() == 0) {
+						dataOutputStream.writeUTF("FAIL");
+						break;
+					}
+					for(int i = 0 ; i < call_match.size() ; i++) {
+						StringTokenizer match_st = new StringTokenizer(call_match.get(i),"$");
+						String match_id = match_st.nextToken(); //매치 아이디 가져옴
+						
+						//매치 정보 전송
+						System.out.println("MATCH$" + call_match.get(i));
+						dataOutputStream.writeUTF("MATCH$" + call_match.get(i));
+						
+						
+						System.out.println(match_id);
+						ArrayList<String> call_user = sql.selectUser_info(match_id);
+						System.out.println("call_user size : " + call_user.size());
+						if(call_user.size() == 0) {
+							dataOutputStream.writeUTF("FAIL");
+							break;
+						}
+						
+						for(int j = 0 ; j < call_user.size() ; j++ ) {
+							StringTokenizer user_st = new StringTokenizer(call_user.get(j),"$");
+							String user_match_id = user_st.nextToken();
+							String user_user_name = user_st.nextToken();
+							
+							//유저 정보 전송
+							System.out.println("USER$" + call_user.get(j));
+							dataOutputStream.writeUTF("USER$" + call_user.get(j));
+							
+							
+							ArrayList<String> call_trait = sql.selectTrait_info(user_match_id, user_user_name);
+						
+							
+							for(int t = 0 ; t < call_trait.size() ; t++) {
+								StringTokenizer trait_st = new StringTokenizer(call_trait.get(t),"$");
+								String trait_match_id = trait_st.nextToken();
+								String trait_user_name = trait_st.nextToken();
+								String trait_trait_name = trait_st.nextToken();
+								
+								//시너지 정보 전송
+								System.out.println("TRAIT$" + call_trait.get(t));
+								dataOutputStream.writeUTF("TRAIT$" + call_trait.get(t));
+								
+							}
+							dataOutputStream.writeUTF("TRAITCLEAR");
+							
+							
+							ArrayList<String> call_unit = sql.selectUnit_info(user_match_id, user_user_name);
+							if(call_unit.size() == 0) {
+								dataOutputStream.writeUTF("FAIL");
+								
+								break;
+							}
+							
+							for(int u = 0 ; u < call_unit.size() ; u++) {
+								StringTokenizer unit_st = new StringTokenizer(call_unit.get(u),"$");
+								String unit_match_id = unit_st.nextToken();
+								String unit_user_name = unit_st.nextToken();
+								String unit_character_id = unit_st.nextToken();
+								String unit_tier = unit_st.nextToken();
+								String unit_item_1 = unit_st.nextToken();
+								String unit_item_2 = unit_st.nextToken();
+								String unit_item_3 = unit_st.nextToken();
+								
+								//유닛 정보 전송
+								System.out.println("UNIT$" + call_unit.get(u));
+								dataOutputStream.writeUTF("UNIT$" + call_unit.get(u));
+								
+							}
+							dataOutputStream.writeUTF("UNITCLEAR");
+							
+							dataOutputStream.writeUTF("USERCLEAR");
+						}
+						dataOutputStream.writeUTF("MATCHCLEAR");
+					}
+					dataOutputStream.writeUTF("CLEAR");
+					break;
 				case "SAVE":	//저장
 					break;
 				case "DELETE":		//저장된 기록삭제

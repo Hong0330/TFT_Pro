@@ -10,6 +10,16 @@ public class Data {
     private ArrayList<String> trait = new ArrayList<String>();
     private ArrayList<String> unit = new ArrayList<String>();
 
+    private int pos;
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
+
     public String getTitle() {
         return title;
     }
