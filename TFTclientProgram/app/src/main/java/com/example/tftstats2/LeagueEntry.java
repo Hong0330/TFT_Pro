@@ -1,6 +1,8 @@
 package com.example.tftstats2;
 
-public class LeagueEntry {
+import java.io.Serializable;
+
+public class LeagueEntry implements Serializable {
     private String tier;
     private String rank;
     private String name;

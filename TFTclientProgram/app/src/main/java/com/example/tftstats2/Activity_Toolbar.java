@@ -50,6 +50,10 @@ public class Activity_Toolbar extends AppCompatActivity {
     LeagueEntry leagueEntry = new LeagueEntry();    //티어정보 저장
     String TFT_name; //접속한 닉네임
 
+    //내 정보에 쓸 데이터들
+    ArrayList<String> tmp_trait = new ArrayList<String>();
+    ArrayList<String> tmp_unit = new ArrayList<String>();
+
 
     boolean update = false;  //데이터가 업데이트 되었는지 확인
     boolean searchFail = false; //전적 검색 실패 시 true
@@ -138,8 +142,21 @@ public class Activity_Toolbar extends AppCompatActivity {
                 else if(id == R.id.profile){
                     Intent intent = new Intent(
                             getApplicationContext(),
-                            Activity_Toolbar.class);
-                    startActivity(intent);
+                            Activity_Profile.class);
+                    if(leagueEntry.getName() == null) {
+                        System.out.println("리그정보 비어있음");
+                        leagueEntry.setName("!!!");
+                        intent.putExtra("league", leagueEntry); //리그 정보 저장
+                        intent.putExtra("trait", tmp_trait);
+                        intent.putExtra("unit", tmp_unit);
+                        startActivity(intent);
+                    }
+                    else {
+                        intent.putExtra("league", leagueEntry); //리그 정보 저장
+                        intent.putExtra("trait", tmp_trait);
+                        intent.putExtra("unit", tmp_unit);
+                        startActivity(intent);
+                    }
                 }
                 else if(id == R.id.logout){
                     Toast.makeText(context, title + ": 로그아웃 시도중", Toast.LENGTH_SHORT).show();
@@ -349,12 +366,18 @@ public class Activity_Toolbar extends AppCompatActivity {
                             String tmp = matches.get(i).getParticipants().get(j).getTraits().get(t).getTrait_name();
                             tmp = tmp.replaceAll("Set3_" , "");
                             trait.add(tmp);
+
+                            //내 정보에 쓸 데이터 저장
+                            tmp_trait.add(tmp);
                         }
                     }
                     ArrayList<String> unit = new ArrayList<String>();
                     for(int u = 0 ; u < matches.get(i).getParticipants().get(j).getUnits().size() ; u++) { //유닛 갯수만큼 반복
                         String tmp = matches.get(i).getParticipants().get(j).getUnits().get(u).getCharacter_id();
                         unit.add(tmp);
+
+                        //내 정보에 쓸 데이터 저장
+                        tmp_unit.add(tmp);
                     }
                     data.setTrait(trait);
                     data.setUnit(unit);

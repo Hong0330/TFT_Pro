@@ -153,7 +153,7 @@ public class Activity_Saved extends AppCompatActivity {
                     StringTokenizer st = new StringTokenizer(recv , "$");
                     String message = st.nextToken();
                     switch(message) {
-                        case "MATCH":
+                        case "MATCH": //매치정보 저장
                             match = new Match();
                             String match_id = st.nextToken();
                             float game_length = Float.parseFloat(st.nextToken());
@@ -162,7 +162,7 @@ public class Activity_Saved extends AppCompatActivity {
                             match.setGame_length(game_length);
                             match.setGame_variation(game_variation);
                             break;
-                        case "USER":
+                        case "USER": //유저정보 저장
                             participant = new Participant();
                             traits = new ArrayList<Trait>();
                             units = new ArrayList<Unit>();
@@ -178,7 +178,7 @@ public class Activity_Saved extends AppCompatActivity {
                             participant.setLevel(user_level);
                             participant.setPlayers_eliminated(user_player_eliminated);
                             break;
-                        case "TRAIT":
+                        case "TRAIT": //시너지 정보 저장
                             Trait trait = new Trait();
                             String trait_match_id = st.nextToken();
                             String trait_user_name = st.nextToken();
@@ -187,7 +187,7 @@ public class Activity_Saved extends AppCompatActivity {
                             trait.setTier_current(1);
                             traits.add(trait);
                             break;
-                        case "UNIT":
+                        case "UNIT": //유닛 정보 저장
                             Unit unit = new Unit();
                             String unit_match_id = st.nextToken();
                             String unit_user_name = st.nextToken();

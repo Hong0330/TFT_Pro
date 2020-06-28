@@ -16,7 +16,7 @@
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            android:windowSoftInputMode="adjustPan|adjustNothing|stateAlwaysHidden"
             android:screenOrientation="portrait">
 
             <intent-filter>
