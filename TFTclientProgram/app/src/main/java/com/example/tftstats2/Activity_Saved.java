@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,6 +64,26 @@ public class Activity_Saved extends AppCompatActivity {
 
         adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                System.out.println("세부 정보 클릭");
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        Activity_Details.class);
+                //이곳에서 세부 전적 데이터 인텐트로 넘김
+                Data data  = adapter.getItem(pos);
+                //System.out.println("클릭한 뷰의 pos : " + data.getPos() + "pos : " + pos);
+                intent.putExtra("match_id" , matches.get(pos).getMatch_id());
+                intent.putExtra("game_length" , matches.get(pos).getGame_length());
+                intent.putExtra("game_variation" , matches.get(pos).getGame_variation());
+                intent.putExtra("participants" , matches.get(pos).getParticipants());
+                intent.putExtra("save", true);
+                startActivity(intent);
+            }
+        });
+
         //init();
         //getData();
         ActionBar actionBar = getSupportActionBar();

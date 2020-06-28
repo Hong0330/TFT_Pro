@@ -57,6 +57,7 @@ public class Activity_Toolbar extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private Context context = this;
     private RecyclerAdapter adapter;
+    RecyclerView recyclerView;
 
 
     @Override
@@ -76,8 +77,11 @@ public class Activity_Toolbar extends AppCompatActivity {
 
         // 추가된 소스, Toolbar를 생성한다.
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        RecyclerView recyclerView = findViewById(R.id.matchlist);
+        //리사이클러뷰 필드로 변경
+        recyclerView = findViewById(R.id.matchlist);
+
         setSupportActionBar(myToolbar);
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -100,6 +104,7 @@ public class Activity_Toolbar extends AppCompatActivity {
                 intent.putExtra("game_length" , matches.get(pos).getGame_length());
                 intent.putExtra("game_variation" , matches.get(pos).getGame_variation());
                 intent.putExtra("participants" , matches.get(pos).getParticipants());
+                intent.putExtra("name" , TFT_name);
                 startActivity(intent);
             }
         });
@@ -163,6 +168,30 @@ public class Activity_Toolbar extends AppCompatActivity {
                 name = s;
                 msg = "SEARCH$" + s;
                 send.start();
+
+                matches = new ArrayList<Match>(); //매치 초기화
+                adapter = new RecyclerAdapter();
+                recyclerView.setAdapter(adapter);
+
+                adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int pos) {
+                        System.out.println("세부 정보 클릭");
+                        Intent intent = new Intent(
+                                getApplicationContext(),
+                                Activity_Details.class);
+                        //이곳에서 세부 전적 데이터 인텐트로 넘김
+                        Data data  = adapter.getItem(pos);
+                        //System.out.println("클릭한 뷰의 pos : " + data.getPos() + "pos : " + pos);
+                        intent.putExtra("match_id" , matches.get(pos).getMatch_id());
+                        intent.putExtra("game_length" , matches.get(pos).getGame_length());
+                        intent.putExtra("game_variation" , matches.get(pos).getGame_variation());
+                        intent.putExtra("participants" , matches.get(pos).getParticipants());
+                        intent.putExtra("name" , TFT_name);
+                        startActivity(intent);
+                    }
+                });
+
                 while(true) {
                     if(update) {
                         getData();

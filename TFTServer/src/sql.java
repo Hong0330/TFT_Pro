@@ -31,12 +31,37 @@ public class sql {
 	String deleteTrait = "delete from trait_info where match_id=?";
 	String deleteUnit = "delete from unit_info where match_id=?";
 	
+	String checkMatch = "select * from match_info where TFT_name=? and match_id=?";
+	
 	public void connect() {
 		try {
 			con = DriverManager.getConnection(url,user,password);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public boolean checkMatch_info(String name, String match_id) {
+		try {
+			
+			pstatement = con.prepareStatement(checkMatch);
+			pstatement.setString(1, name); 
+			pstatement.setString(2, match_id);
+			
+			ResultSet rs = pstatement.executeQuery();
+			
+			if(!rs.next()) {
+				//비어있는 상태 이므로 중복이 없다
+				return true;
+			}
+			else {
+				return false;
+			}
+			
+		} catch (SQLException e) {//예외 발생시 
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -55,15 +80,18 @@ public class sql {
 			
 			if(tmp_id == null) { //해당하는 아이디가 없는 경우 생성할 수 있음
 				rs.close();
+				System.out.println("SQL 중복 없음");
 				return true; 
 			}
 			else {	//중복이 있는 경우 false
 				rs.close();
+				System.out.println("SQL 중복");
 				return false;
 			}
 
 		} catch (SQLException e) {//예외 발생시 
 			e.printStackTrace();
+			System.out.println("SQL 예외");
 			return false;
 		}
 	}

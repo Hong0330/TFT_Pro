@@ -100,6 +100,7 @@ public class ServerObject extends Thread{
 					break;
 					
 				case "SEARCH":	//검색
+					request.reset();
 					String search_name = st.nextToken();
 					//데이터 저장
 					if(request.callSummonerDTO(search_name)) {
@@ -240,6 +241,155 @@ public class ServerObject extends Thread{
 					dataOutputStream.writeUTF("CLEAR");
 					break;
 				case "SAVE":	//저장
+					
+					boolean clear = false; //성공 여부 판단하는 변수
+					
+					
+					String id = st.nextToken(); //매치 아이디 받음
+					String name = st.nextToken(); //닉네임 받음
+					
+					System.out.println("저장할 매치 : " + id);
+					//DB에 매치리스트가 중복되었는지 검사
+					
+					boolean check = sql.checkMatch_info(name, id);
+					System.out.println("체크 성공 : " + check);
+					if(!check) { //중복되는 매치가 존재할경우
+						//중복된 매치 이므로 실패 메시지 후 switch문 빠져나감
+						System.out.println("중복");
+						dataOutputStream.writeUTF("OVERLAP");
+						break;
+					}
+					else {
+						dataOutputStream.writeUTF("CLEAR");
+					}
+					
+					while(true) {
+						String msg = dataInputStream.readUTF();
+						
+						if(msg.equals("CLEAR")) {
+							clear = true;
+							break;
+						}
+						
+						StringTokenizer msg_st = new StringTokenizer(msg, "$");
+						
+						String token = msg_st.nextToken();
+						switch(token) {
+							case "MATCH":
+								String match_name = msg_st.nextToken();
+								String match_id = msg_st.nextToken();
+								float match_length = Float.parseFloat(msg_st.nextToken());
+								String match_var = msg_st.nextToken();
+								sql.insertMatch_info(match_name, match_id, match_length, match_var);
+								break;
+							case "USER":
+								String user_id = msg_st.nextToken();
+								String user_name = msg_st.nextToken();
+								int gold = Integer.parseInt(msg_st.nextToken());
+								int last = Integer.parseInt(msg_st.nextToken());
+								int level = Integer.parseInt(msg_st.nextToken());
+								int player = Integer.parseInt(msg_st.nextToken());
+								sql.insertUser_info(user_id, user_name, gold, last, level, player);
+								break;
+							case "TRAIT":
+								String trait_id = msg_st.nextToken();
+								String trait_name = msg_st.nextToken();
+								int trait_no = Integer.parseInt(msg_st.nextToken());
+								String trait_trait_name = msg_st.nextToken();
+								int num = Integer.parseInt(msg_st.nextToken());
+								int current = Integer.parseInt(msg_st.nextToken());
+								sql.insertTrait_info(trait_id, trait_name, trait_no, trait_trait_name, num, current);
+								break;
+							case "UNIT":
+								String unit_id = msg_st.nextToken();
+								String unit_name = msg_st.nextToken();
+								int unit_no = Integer.parseInt(msg_st.nextToken());
+								String unit_character_id = msg_st.nextToken();
+								int unit_tier = Integer.parseInt(msg_st.nextToken());
+								int unit_1 = Integer.parseInt(msg_st.nextToken());
+								int unit_2 = Integer.parseInt(msg_st.nextToken());
+								int unit_3 = Integer.parseInt(msg_st.nextToken());
+								sql.insertUnit_info(unit_id, unit_name, unit_no, unit_character_id, unit_tier, unit_1, unit_2, unit_3);
+								break;
+						}
+					}
+					
+					
+					/*
+					System.out.println("매치리스트 사이즈 : " + request.matchDto.size());
+					for(int i = 0 ; i < request.matchDto.size() ; i++) { //저장된 매치 리스트 개수 만큼 반복
+						
+						System.out.println("찾는 매치 : " + id + "  매치 리스트 : " + request.matchDto.get(i).getMetadata().getMatch_id());
+						if(id.equals(request.matchDto.get(i).getMetadata().getMatch_id())) { //같은 매치리스트를 찾으면 
+							System.out.println("저장할 매치 찾음");
+							
+							//매치 인포 저장
+							sql.insertMatch_info(request.summonerDTO.getName(), request.matchDto.get(i).getMetadata().getMatch_id(), request.matchDto.get(i).getInfo().getGame_length(), request.matchDto.get(i).getInfo().getGame_variation());
+							
+							//매치의 참여자만큼 반복
+							for(int j = 0 ;j < request.matchDto.get(i).getInfo().getParticipants().size(); j++) {
+								//유저 인포 저장
+								sql.insertUser_info(request.matchDto.get(i).getMetadata().getMatch_id(), request.participantList.get(i).get(j), request.matchDto.get(i).getInfo().getParticipants().get(j).getGold_left(), request.matchDto.get(i).getInfo().getParticipants().get(j).getLast_round(), request.matchDto.get(i).getInfo().getParticipants().get(j).getLevel(), request.matchDto.get(i).getInfo().getParticipants().get(j).getPlayers_eliminated());
+								
+								//해당 유저의 시너지 개수만큼 반복
+								for(int k =0 ; k < request.matchDto.get(i).getInfo().getParticipants().get(j).getTraits().size(); k++) {
+									//시너지 저장
+									sql.insertTrait_info(request.matchDto.get(i).getMetadata().getMatch_id(), request.participantList.get(i).get(j), k, request.matchDto.get(i).getInfo().getParticipants().get(j).getTraits().get(k).getName(), request.matchDto.get(i).getInfo().getParticipants().get(j).getTraits().get(k).getNum_units(), request.matchDto.get(i).getInfo().getParticipants().get(j).getTraits().get(k).getTier_current());
+								}
+								
+								//해당 유저의 유닛 개수 만큼 반복
+								for(int l = 0 ; l < request.matchDto.get(i).getInfo().getParticipants().get(j).getUnits().size(); l++) {
+									//유닛 아이템을 저장할 배열
+									int[] tmp = new int[3];
+									//아이템 배열을 꺼내 각 변수에 저장
+									tmp = request.matchDto.get(i).getInfo().getParticipants().get(j).getUnits().get(l).getItems();
+									int item_1 = 0;
+									int item_2 = 0;
+									int item_3 = 0;
+									switch(tmp.length) {
+									case 0:
+										break;
+									case 1:
+										//item_1 = (r.matchDto.get(i).getInfo().getParticipants().get(j).getUnits().get(l).getItems().get(0)).intValue();
+										item_1 = tmp[0];
+										break;
+									case 2:
+										//item_1 = (r.matchDto.get(i).getInfo().getParticipants().get(j).getUnits().get(l).getItems().get(0)).intValue();
+										//item_2 = (r.matchDto.get(i).getInfo().getParticipants().get(j).getUnits().get(l).getItems().get(1)).intValue();
+										item_1 = tmp[0];
+										item_2 = tmp[1];
+										break;
+									case 3:
+										//item_1 = (r.matchDto.get(i).getInfo().getParticipants().get(j).getUnits().get(l).getItems().get(0)).intValue();
+										//item_2 = (r.matchDto.get(i).getInfo().getParticipants().get(j).getUnits().get(l).getItems().get(1)).intValue();
+										//item_3 = (r.matchDto.get(i).getInfo().getParticipants().get(j).getUnits().get(l).getItems().get(2)).intValue();
+										item_1 = tmp[0];
+										item_2 = tmp[1];
+										item_3 = tmp[2];
+										break;		
+									}
+									
+									//유닛 인포 저장
+									sql.insertUnit_info(request.matchDto.get(i).getMetadata().getMatch_id(), request.participantList.get(i).get(j), l, request.matchDto.get(i).getInfo().getParticipants().get(j).getUnits().get(l).getCharacter_id(), request.matchDto.get(i).getInfo().getParticipants().get(j).getUnits().get(l).getTier(), item_1, item_2, item_3);
+									//r.matchDto.get(i).getInfo().getParticipants().get(j).getUnits().get(l)
+								}
+							}
+							
+							//저장이 완료된 시점
+							clear = true;
+						}	
+						
+					}
+					*/
+					
+					 if(clear) {
+						 dataOutputStream.writeUTF("CLEAR"); //성공 메시지
+					 }
+					 else {
+						 dataOutputStream.writeUTF("FAIL"); //실패 메시지 
+					 }
+					
+					
 					break;
 				case "DELETE":		//저장된 기록삭제
 					break;
