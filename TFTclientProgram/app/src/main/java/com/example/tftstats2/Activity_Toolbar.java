@@ -193,6 +193,7 @@ public class Activity_Toolbar extends AppCompatActivity {
                 });
 
                 while(true) {
+                    System.out.println("반복");
                     if(update) {
                         getData();
                         //adapter.notifyDataSetChanged();
