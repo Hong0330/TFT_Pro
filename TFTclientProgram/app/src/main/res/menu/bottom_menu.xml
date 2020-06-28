@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/c_tread"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="챔피언 트렌드"/>
+
+    <item
+        android:id="@+id/t_trend"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_flare_24"
+        android:title="시너지 트렌드"/>
+
+</menu>

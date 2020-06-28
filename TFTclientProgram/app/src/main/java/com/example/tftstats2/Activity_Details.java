@@ -3,12 +3,9 @@ package com.example.tftstats2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.view.Menu;
 import android.view.MenuInflater;
-=======
 import android.util.AttributeSet;
->>>>>>> refs/remotes/origin/master
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
