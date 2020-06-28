@@ -57,6 +57,9 @@ public class Activity_Toolbar extends AppCompatActivity {
 
     boolean update = false;  //데이터가 업데이트 되었는지 확인
     boolean searchFail = false; //전적 검색 실패 시 true
+    private static int SearchLimit = 10; // 검색 횟수 제한
+    private static boolean searchOn = true;
+    private static boolean limit = false;
 
     private DrawerLayout mDrawerLayout;
     private Context context = this;
@@ -180,6 +183,76 @@ public class Activity_Toolbar extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+/*
+                // 검색 횟수 제한  ---- 실제 시연 시 필요, API의 자체적은 횟수 제한에 대한 대비
+                // API의 검색 제한 2분 동안 100회에  대비하기 위해 만든 코드입니다.
+                // 검색 성공 시 필요한 검색 수를 90으로 해서 10번의 검색 제한을 뒀습니다.
+                if(SearchLimit < 1){
+                    System.out.println("검색횟수 제한");
+                    //에러 토스트 출력
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "검색 횟수 초과", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    if(searchOn){ // 검색이 어떤 상태인가 -- true
+                        searchOn = false;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{ // 일정 시간 대기 상태
+                                    Thread.sleep(150000);
+                                    searchOn = true;
+                                    SearchLimit = 10;
+                                }catch (InterruptedException e){}
+                            }
+                        }).start();
+
+                        return true;
+
+                    }else{ // -- false
+                        return true;
+                    }
+
+                }else{
+                    SearchLimit = SearchLimit - 1;
+                }
+*/
+                // 연속으로 검색 성공 시 생기는 오류만 해결하는 코드(임시 코드)
+                // 실제 사용 시 횟수 제한 코드와 추가적인 결합 필요
+                if(limit){ // 검색 성공 시 검색 제한 150초(쿨타임)
+                    System.out.println("검색횟수 제한");
+                    //에러 토스트 출력
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "쿨타임 적용 중", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    if(searchOn){ // 검색이 어떤 상태인가 -- true
+                        searchOn = false;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{ // 일정 시간 대기 상태
+                                    Thread.sleep(150000);
+                                    searchOn = true;
+                                    limit = false; // 제한 해제
+                                }catch (InterruptedException e){}
+                            }
+                        }).start();
+
+                        return true;
+
+                    }else{ // -- false
+                        return true;
+                    }
+
+                }
+
                 // 입력받은 문자열 처리
                 Send send = new Send(netService.getSocket());
                 name = s;
@@ -210,7 +283,9 @@ public class Activity_Toolbar extends AppCompatActivity {
                 });
 
                 while(true) {
+                    System.out.println("반복"); // --- 이거 없으면 반복 검색이 안 됨
                     if(update) {
+                        limit = true; // 검색 성공 시 쿨 타임 적용
                         getData();
                         //adapter.notifyDataSetChanged();
                         System.out.println("업데이트");
