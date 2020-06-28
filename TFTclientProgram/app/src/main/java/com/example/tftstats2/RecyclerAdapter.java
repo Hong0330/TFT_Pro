@@ -571,54 +571,54 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             //imageView9.setImageResource(unit.get(1));
             switch (trait.size()) {
                 case 0:
-                    imageView1.setImageResource(R.drawable.transparency);
-                    imageView2.setImageResource(R.drawable.transparency);
-                    imageView3.setImageResource(R.drawable.transparency);
-                    imageView4.setImageResource(R.drawable.transparency);
-                    imageView5.setImageResource(R.drawable.transparency);
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView1.setImageResource(R.drawable.void_trait);
+                    imageView2.setImageResource(R.drawable.void_trait);
+                    imageView3.setImageResource(R.drawable.void_trait);
+                    imageView4.setImageResource(R.drawable.void_trait);
+                    imageView5.setImageResource(R.drawable.void_trait);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
                     break;
                 case 1:
                     imageView1.setImageResource(trait.get(0));
-                    imageView2.setImageResource(R.drawable.transparency);
-                    imageView3.setImageResource(R.drawable.transparency);
-                    imageView4.setImageResource(R.drawable.transparency);
-                    imageView5.setImageResource(R.drawable.transparency);
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView2.setImageResource(R.drawable.void_trait);
+                    imageView3.setImageResource(R.drawable.void_trait);
+                    imageView4.setImageResource(R.drawable.void_trait);
+                    imageView5.setImageResource(R.drawable.void_trait);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
                     break;
                 case 2:
                     imageView1.setImageResource(trait.get(0));
                     imageView2.setImageResource(trait.get(1));
-                    imageView3.setImageResource(R.drawable.transparency);
-                    imageView4.setImageResource(R.drawable.transparency);
-                    imageView5.setImageResource(R.drawable.transparency);
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView3.setImageResource(R.drawable.void_trait);
+                    imageView4.setImageResource(R.drawable.void_trait);
+                    imageView5.setImageResource(R.drawable.void_trait);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
                     break;
                 case 3:
                     imageView1.setImageResource(trait.get(0));
                     imageView2.setImageResource(trait.get(1));
                     imageView3.setImageResource(trait.get(2));
-                    imageView4.setImageResource(R.drawable.transparency);
-                    imageView5.setImageResource(R.drawable.transparency);
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView4.setImageResource(R.drawable.void_trait);
+                    imageView5.setImageResource(R.drawable.void_trait);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
                     break;
                 case 4:
                     imageView1.setImageResource(trait.get(0));
                     imageView2.setImageResource(trait.get(1));
                     imageView3.setImageResource(trait.get(2));
                     imageView4.setImageResource(trait.get(3));
-                    imageView5.setImageResource(R.drawable.transparency);
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView5.setImageResource(R.drawable.void_trait);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
                     break;
                 case 5:
                     imageView1.setImageResource(trait.get(0));
@@ -626,9 +626,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     imageView3.setImageResource(trait.get(2));
                     imageView4.setImageResource(trait.get(3));
                     imageView5.setImageResource(trait.get(4));
-                    imageView6.setImageResource(R.drawable.transparency);
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView6.setImageResource(R.drawable.void_trait);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
                     break;
                 case 6:
                     imageView1.setImageResource(trait.get(0));
@@ -637,8 +637,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     imageView4.setImageResource(trait.get(3));
                     imageView5.setImageResource(trait.get(4));
                     imageView6.setImageResource(trait.get(5));
-                    imageView7.setImageResource(R.drawable.transparency);
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView7.setImageResource(R.drawable.void_trait);
+                    imageView8.setImageResource(R.drawable.void_trait);
                     break;
                 case 7:
                     imageView1.setImageResource(trait.get(0));
@@ -648,7 +648,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     imageView5.setImageResource(trait.get(4));
                     imageView6.setImageResource(trait.get(5));
                     imageView7.setImageResource(trait.get(6));
-                    imageView8.setImageResource(R.drawable.transparency);
+                    imageView8.setImageResource(R.drawable.void_trait);
                     break;
                 default: //8개이상
                     imageView1.setImageResource(trait.get(0));
@@ -664,54 +664,54 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
             switch (unit.size()) {
                 case 0:
-                    imageView9.setImageResource(R.drawable.transparency);
-                    imageView10.setImageResource(R.drawable.transparency);
-                    imageView11.setImageResource(R.drawable.transparency);
-                    imageView12.setImageResource(R.drawable.transparency);
-                    imageView13.setImageResource(R.drawable.transparency);
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView9.setImageResource(R.drawable.void_unit);
+                    imageView10.setImageResource(R.drawable.void_unit);
+                    imageView11.setImageResource(R.drawable.void_unit);
+                    imageView12.setImageResource(R.drawable.void_unit);
+                    imageView13.setImageResource(R.drawable.void_unit);
+                    imageView14.setImageResource(R.drawable.void_unit);
+                    imageView15.setImageResource(R.drawable.void_unit);
+                    imageView16.setImageResource(R.drawable.void_unit);
                     break;
                 case 1:
                     imageView9.setImageResource(unit.get(0));
-                    imageView10.setImageResource(R.drawable.transparency);
-                    imageView11.setImageResource(R.drawable.transparency);
-                    imageView12.setImageResource(R.drawable.transparency);
-                    imageView13.setImageResource(R.drawable.transparency);
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView10.setImageResource(R.drawable.void_unit);
+                    imageView11.setImageResource(R.drawable.void_unit);
+                    imageView12.setImageResource(R.drawable.void_unit);
+                    imageView13.setImageResource(R.drawable.void_unit);
+                    imageView14.setImageResource(R.drawable.void_unit);
+                    imageView15.setImageResource(R.drawable.void_unit);
+                    imageView16.setImageResource(R.drawable.void_unit);
                     break;
                 case 2:
                     imageView9.setImageResource(unit.get(0));
                     imageView10.setImageResource(unit.get(1));
-                    imageView11.setImageResource(R.drawable.transparency);
-                    imageView12.setImageResource(R.drawable.transparency);
-                    imageView13.setImageResource(R.drawable.transparency);
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView11.setImageResource(R.drawable.void_unit);
+                    imageView12.setImageResource(R.drawable.void_unit);
+                    imageView13.setImageResource(R.drawable.void_unit);
+                    imageView14.setImageResource(R.drawable.void_unit);
+                    imageView15.setImageResource(R.drawable.void_unit);
+                    imageView16.setImageResource(R.drawable.void_unit);
                     break;
                 case 3:
                     imageView9.setImageResource(unit.get(0));
                     imageView10.setImageResource(unit.get(1));
                     imageView11.setImageResource(unit.get(2));
-                    imageView12.setImageResource(R.drawable.transparency);
-                    imageView13.setImageResource(R.drawable.transparency);
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView12.setImageResource(R.drawable.void_unit);
+                    imageView13.setImageResource(R.drawable.void_unit);
+                    imageView14.setImageResource(R.drawable.void_unit);
+                    imageView15.setImageResource(R.drawable.void_unit);
+                    imageView16.setImageResource(R.drawable.void_unit);
                     break;
                 case 4:
                     imageView9.setImageResource(unit.get(0));
                     imageView10.setImageResource(unit.get(1));
                     imageView11.setImageResource(unit.get(2));
                     imageView12.setImageResource(unit.get(3));
-                    imageView13.setImageResource(R.drawable.transparency);
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView13.setImageResource(R.drawable.void_unit);
+                    imageView14.setImageResource(R.drawable.void_unit);
+                    imageView15.setImageResource(R.drawable.void_unit);
+                    imageView16.setImageResource(R.drawable.void_unit);
                     break;
                 case 5:
                     imageView9.setImageResource(unit.get(0));
@@ -719,9 +719,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     imageView11.setImageResource(unit.get(2));
                     imageView12.setImageResource(unit.get(3));
                     imageView13.setImageResource(unit.get(4));
-                    imageView14.setImageResource(R.drawable.transparency);
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView14.setImageResource(R.drawable.void_unit);
+                    imageView15.setImageResource(R.drawable.void_unit);
+                    imageView16.setImageResource(R.drawable.void_unit);
                     break;
                 case 6:
                     imageView9.setImageResource(unit.get(0));
@@ -730,8 +730,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     imageView12.setImageResource(unit.get(3));
                     imageView13.setImageResource(unit.get(4));
                     imageView14.setImageResource(unit.get(5));
-                    imageView15.setImageResource(R.drawable.transparency);
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView15.setImageResource(R.drawable.void_unit);
+                    imageView16.setImageResource(R.drawable.void_unit);
                     break;
                 case 7:
                     imageView9.setImageResource(unit.get(0));
@@ -741,7 +741,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     imageView13.setImageResource(unit.get(4));
                     imageView14.setImageResource(unit.get(5));
                     imageView15.setImageResource(unit.get(6));
-                    imageView16.setImageResource(R.drawable.transparency);
+                    imageView16.setImageResource(R.drawable.void_unit);
                     break;
                 default: //8개이상
                     imageView9.setImageResource(unit.get(0));

@@ -144,6 +144,120 @@
                 android:layout_weight="1"
                 app:srcCompat="@drawable/manareaver" />
         </LinearLayout>
+<<<<<<< HEAD
+=======
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="169dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView52"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ahri" />
+
+            <ImageView
+                android:id="@+id/imageView53"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/annie" />
+
+            <ImageView
+                android:id="@+id/imageView54"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ashe" />
+
+            <ImageView
+                android:id="@+id/imageView55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/aurelionsol" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView56"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/bard" />
+
+            <ImageView
+                android:id="@+id/imageView57"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/blitzcrank" />
+
+            <ImageView
+                android:id="@+id/imageView58"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/caitlyn" />
+
+            <ImageView
+                android:id="@+id/imageView59"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/cassiopeia" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/chogath" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/darius" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ekko" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ezreal" />
+        </LinearLayout>
+    </LinearLayout>
+>>>>>>> refs/remotes/origin/master
 
     </LinearLayout>
 
