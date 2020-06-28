@@ -36,7 +36,6 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="146dp"
-            android:layout_above="@+id/matchlist"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -49,9 +48,9 @@
                 android:id="@+id/view_toolbar2"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_below="@+id/toolbar"
                 android:layout_gravity="bottom"
-                android:background="@android:color/black" />
+                android:background="@android:color/black"
+                android:layout_below="@+id/toolbar"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
