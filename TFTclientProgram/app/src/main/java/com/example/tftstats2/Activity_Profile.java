@@ -80,7 +80,7 @@ public class Activity_Profile extends AppCompatActivity{
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("내 정보");
+        actionBar.setTitle("매치 트렌드");
 
         //인텐트에서 정보 불러오기
         Intent intent = getIntent();

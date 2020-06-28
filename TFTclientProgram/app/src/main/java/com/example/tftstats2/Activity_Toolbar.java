@@ -164,6 +164,10 @@ public class Activity_Toolbar extends AppCompatActivity {
                 }
                 else if(id == R.id.logout){
                     Toast.makeText(context, title + ": 로그아웃 시도중", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(
+                            getApplicationContext(), // 현재 화면의 제어권자
+                            MainActivity.class); // 다음 넘어갈 클래스 지정
+                    startActivity(intent); // 다음 화면으로 넘어간다
                 }
 
                 return true;
