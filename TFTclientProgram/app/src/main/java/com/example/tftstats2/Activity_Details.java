@@ -2,36 +2,71 @@ package com.example.tftstats2;
 
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
+import android.os.Handler;
+import android.os.Looper;
+import android.util.AttributeSet;
+>>>>>>> refs/remotes/origin/master
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+<<<<<<< HEAD
+=======
+import android.widget.Toast;
+
+>>>>>>> refs/remotes/origin/master
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 
 
 public class Activity_Details extends AppCompatActivity {
 
     private DetailsAdapter adapter;
+    NetService netService;
+    String TFT_name;
 
     private ArrayList<Participant> participants = new ArrayList<Participant>();
+    String match_id;
+    float game_length;
+    String game_variation;
+
+    boolean saved = false; //저장된 매치인지 판단하는 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.match_detail);
 
+        netService = new NetService();
+        netService.onCreate();
+
         //상세정보 데이터 받음
         Intent intent = getIntent();
         participants = (ArrayList<Participant>) intent.getSerializableExtra("participants");
+        saved = intent.getExtras().getBoolean("save");
+        match_id = intent.getExtras().getString("match_id");
+        game_length = intent.getExtras().getFloat("game_length");
+        game_variation = intent.getExtras().getString("game_variation");
+        TFT_name = intent.getExtras().getString("name");
+        System.out.println("접속한 닉네임 : " + TFT_name);
+        System.out.println("매치 아이디 : " + match_id + " 길이 : " + game_length + " 은하계 : " + game_variation);
         System.out.println(participants.get(0).getUnits().size());
         System.out.println(participants.get(1).getUnits().size());
         System.out.println(participants.get(2).getUser_name());
         System.out.println(participants.get(3).getUser_name());
+
 
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -52,6 +87,118 @@ public class Activity_Details extends AppCompatActivity {
         actionBar.setTitle("상세 정보");
     }
 
+<<<<<<< HEAD
+=======
+    class Send extends Thread {
+        Socket socket;
+        Send(Socket socket) {
+            this.socket = socket;
+        }
+
+
+        public void run() {
+            OutputStream outputStream  = null;
+            InputStream intputStream = null;
+            try {
+                outputStream = socket.getOutputStream();
+                intputStream = socket.getInputStream();
+                DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+                DataInputStream dataInputStream = new DataInputStream(intputStream);
+
+
+                dataOutputStream.writeUTF("SAVE$" + match_id + "$" + TFT_name); // 해당 매치를 저장하는 메시지 전송
+                dataOutputStream.flush();
+
+                while(true) {
+                    String recv = dataInputStream.readUTF();
+                    System.out.println(recv);
+                    if (recv.equals("OVERLAP")) { //중복일 경우
+                        //중복 토스트 출력
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "이미 저장된 매치입니다", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    else {
+                        break;
+                    }
+                }
+
+                //데이터 전송
+                System.out.println("전송 시작");
+                //매치정보 전송
+                String matchMsg = "MATCH$" + TFT_name + "$" + match_id + "$" + game_length + "$" + game_variation;
+                dataOutputStream.writeUTF(matchMsg);
+                dataOutputStream.flush();
+
+                for(int i = 0 ; i < participants.size() ; i++) { //참여자 만큼 반복
+                    //유저 정보 전송
+                    String userMsg = "USER$" + match_id + "$" + participants.get(i).getUser_name() + "$" + participants.get(i).getGold_left() + "$" + participants.get(i).getLast_round() + "$" + participants.get(i).getLevel() + "$" + participants.get(i).getPlayers_eliminated();
+                    dataOutputStream.writeUTF(userMsg);
+                    dataOutputStream.flush();
+
+                    for(int t = 0 ; t < participants.get(i).getTraits().size() ; t++) {
+                        String traitMsg = "TRAIT$" +  match_id + "$" + participants.get(i).getUser_name() + "$" + t + "$" + participants.get(i).getTraits().get(t).getTrait_name() + "$" + participants.get(i).getTraits().get(t).getNum_units() + "$" + participants.get(i).getTraits().get(t).getTier_current();
+                        dataOutputStream.writeUTF(traitMsg);
+                        dataOutputStream.flush();
+                    }
+
+                    for(int u = 0 ; u < participants.get(i).getUnits().size() ; u++) {
+                        String unitMsg = "UNIT$" + match_id + "$" + participants.get(i).getUser_name() + "$" + u + "$" + participants.get(i).getUnits().get(u).getCharacter_id() + "$" + participants.get(i).getUnits().get(u).getTier() + "$" + participants.get(i).getUnits().get(u).getItem_1() + "$" + participants.get(i).getUnits().get(u).getItem_2() + "$" + participants.get(i).getUnits().get(u).getItem_3();
+                        dataOutputStream.writeUTF(unitMsg);
+                        dataOutputStream.flush();
+                    }
+                }
+
+                dataOutputStream.writeUTF("CLEAR");
+                dataOutputStream.flush();
+
+
+                while(true) {
+                    String recv = dataInputStream.readUTF();
+                    if(recv.equals("CLEAR")) {  //저장 성공
+                        saved = true;
+                        // 성공 토스트 출력
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "저장 성공", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    else if(recv.equals("FAIL")){
+                        //에러 토스트 출력
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "저장 실패", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    else {
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "저장 실패", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+>>>>>>> refs/remotes/origin/master
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.detail_menu, menu);
@@ -66,7 +213,27 @@ public class Activity_Details extends AppCompatActivity {
                 return true;
             }
             case R.id.action_save:{
+<<<<<<< HEAD
 
+=======
+                if(saved){
+                    //이미 저장된 정보이므로 토스트 출력
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "이미 저장된 매치입니다", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    return true;
+                }
+                else { //저장 진행
+                    Send send = new Send(netService.getSocket());
+                    System.out.println("저장 진행");
+                    send.start();
+
+                }
+>>>>>>> refs/remotes/origin/master
             }
         }
         return super.onOptionsItemSelected(item);

@@ -43,6 +43,14 @@ public class Signup extends AppCompatActivity{
                 String PW = pw.getText().toString();
                 String Nick = nick.getText().toString();
 
+                if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
+                    msg = "SIGNUP$" + ID + "$" + PW + "$" + Nick;
+                    System.out.println(msg);
+                    Signup.Send send = new Signup.Send(netService.getSocket());
+                    send.start();
+                    return true;
+                }
+                /*
                 switch (keyCode){
                     case KeyEvent.KEYCODE_ENTER:
                         msg = "SIGNUP$" + ID + "$" + PW + "$" + Nick;
@@ -51,6 +59,8 @@ public class Signup extends AppCompatActivity{
                         send.start();
                         return true;
                 }
+
+                */
                 return false;
             }
         });

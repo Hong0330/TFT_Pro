@@ -128,7 +128,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ItemView
             //textView9.setText("테스트용");
             textView7.setText(data.getTitle());
             textView8.setText("레벨 : " + data.getContent());
-            textView9.setText("화면");
+            textView9.setText("  ");
 
             for(int i = 0 ; i < data.getTrait().size() ; i++) {
                 int tmp = 0;

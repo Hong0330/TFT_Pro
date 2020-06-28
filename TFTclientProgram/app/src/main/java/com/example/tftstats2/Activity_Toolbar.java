@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,13 +51,21 @@ public class Activity_Toolbar extends AppCompatActivity {
     LeagueEntry leagueEntry = new LeagueEntry();    //티어정보 저장
     String TFT_name; //접속한 닉네임
 
+    //내 정보에 쓸 데이터들
+    ArrayList<String> tmp_trait = new ArrayList<String>();
+    ArrayList<String> tmp_unit = new ArrayList<String>();
+
 
     boolean update = false;  //데이터가 업데이트 되었는지 확인
     boolean searchFail = false; //전적 검색 실패 시 true
+    private static int SearchLimit = 10; // 검색 횟수 제한
+    private static boolean searchOn = true;
+    private static boolean limit = false;
 
     private DrawerLayout mDrawerLayout;
     private Context context = this;
     private RecyclerAdapter adapter;
+    RecyclerView recyclerView;
 
 
     @Override
@@ -76,8 +85,11 @@ public class Activity_Toolbar extends AppCompatActivity {
 
         // 추가된 소스, Toolbar를 생성한다.
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        RecyclerView recyclerView = findViewById(R.id.matchlist);
+        //리사이클러뷰 필드로 변경
+        recyclerView = findViewById(R.id.matchlist);
+
         setSupportActionBar(myToolbar);
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -100,6 +112,7 @@ public class Activity_Toolbar extends AppCompatActivity {
                 intent.putExtra("game_length" , matches.get(pos).getGame_length());
                 intent.putExtra("game_variation" , matches.get(pos).getGame_variation());
                 intent.putExtra("participants" , matches.get(pos).getParticipants());
+                intent.putExtra("name" , TFT_name);
                 startActivity(intent);
             }
         });
@@ -134,7 +147,24 @@ public class Activity_Toolbar extends AppCompatActivity {
                     Intent intent = new Intent(
                             getApplicationContext(),
                             Activity_Profile.class);
+<<<<<<< HEAD
                     startActivity(intent);
+=======
+                    if(leagueEntry.getName() == null) {
+                        System.out.println("리그정보 비어있음");
+                        leagueEntry.setName("!!!");
+                        intent.putExtra("league", leagueEntry); //리그 정보 저장
+                        intent.putExtra("trait", tmp_trait);
+                        intent.putExtra("unit", tmp_unit);
+                        startActivity(intent);
+                    }
+                    else {
+                        intent.putExtra("league", leagueEntry); //리그 정보 저장
+                        intent.putExtra("trait", tmp_trait);
+                        intent.putExtra("unit", tmp_unit);
+                        startActivity(intent);
+                    }
+>>>>>>> refs/remotes/origin/master
                 }
                 else if(id == R.id.logout){
                     Toast.makeText(context, title + ": 로그아웃 시도중", Toast.LENGTH_SHORT).show();
@@ -159,13 +189,109 @@ public class Activity_Toolbar extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+/*
+                // 검색 횟수 제한  ---- 실제 시연 시 필요, API의 자체적은 횟수 제한에 대한 대비
+                // API의 검색 제한 2분 동안 100회에  대비하기 위해 만든 코드입니다.
+                // 검색 성공 시 필요한 검색 수를 90으로 해서 10번의 검색 제한을 뒀습니다.
+                if(SearchLimit < 1){
+                    System.out.println("검색횟수 제한");
+                    //에러 토스트 출력
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "검색 횟수 초과", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    if(searchOn){ // 검색이 어떤 상태인가 -- true
+                        searchOn = false;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{ // 일정 시간 대기 상태
+                                    Thread.sleep(150000);
+                                    searchOn = true;
+                                    SearchLimit = 10;
+                                }catch (InterruptedException e){}
+                            }
+                        }).start();
+
+                        return true;
+
+                    }else{ // -- false
+                        return true;
+                    }
+
+                }else{
+                    SearchLimit = SearchLimit - 1;
+                }
+*/
+                // 연속으로 검색 성공 시 생기는 오류만 해결하는 코드(임시 코드)
+                // 실제 사용 시 횟수 제한 코드와 추가적인 결합 필요
+                if(limit){ // 검색 성공 시 검색 제한 150초(쿨타임)
+                    System.out.println("검색횟수 제한");
+                    //에러 토스트 출력
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "쿨타임 적용 중", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    if(searchOn){ // 검색이 어떤 상태인가 -- true
+                        searchOn = false;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{ // 일정 시간 대기 상태
+                                    Thread.sleep(150000);
+                                    searchOn = true;
+                                    limit = false; // 제한 해제
+                                }catch (InterruptedException e){}
+                            }
+                        }).start();
+
+                        return true;
+
+                    }else{ // -- false
+                        return true;
+                    }
+
+                }
+
                 // 입력받은 문자열 처리
                 Send send = new Send(netService.getSocket());
                 name = s;
                 msg = "SEARCH$" + s;
                 send.start();
+
+                matches = new ArrayList<Match>(); //매치 초기화
+                adapter = new RecyclerAdapter();
+                recyclerView.setAdapter(adapter);
+
+                adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int pos) {
+                        System.out.println("세부 정보 클릭");
+                        Intent intent = new Intent(
+                                getApplicationContext(),
+                                Activity_Details.class);
+                        //이곳에서 세부 전적 데이터 인텐트로 넘김
+                        Data data  = adapter.getItem(pos);
+                        //System.out.println("클릭한 뷰의 pos : " + data.getPos() + "pos : " + pos);
+                        intent.putExtra("match_id" , matches.get(pos).getMatch_id());
+                        intent.putExtra("game_length" , matches.get(pos).getGame_length());
+                        intent.putExtra("game_variation" , matches.get(pos).getGame_variation());
+                        intent.putExtra("participants" , matches.get(pos).getParticipants());
+                        intent.putExtra("name" , TFT_name);
+                        startActivity(intent);
+                    }
+                });
+
                 while(true) {
+                    System.out.println("반복"); // --- 이거 없으면 반복 검색이 안 됨
                     if(update) {
+                        limit = true; // 검색 성공 시 쿨 타임 적용
                         getData();
                         //adapter.notifyDataSetChanged();
                         System.out.println("업데이트");
@@ -239,8 +365,11 @@ public class Activity_Toolbar extends AppCompatActivity {
                                 //패배 업데이트
                                 TextView lossesView = findViewById(R.id.textView13);
                                 lossesView.setText(String.valueOf("패      배 : " + leagueEntry.getLosses()));
-                                //평균등수 업데이트
+                                //승률 업데이트
                                 TextView aView = findViewById(R.id.textView14);
+                                DecimalFormat form = new DecimalFormat("#.##");
+                                double rate = ((double)leagueEntry.getWins()/(double)(leagueEntry.getWins() + leagueEntry.getLosses()))*100;
+                                aView.setText(String.valueOf("승      률 : "  + form.format(rate) + "%"));
 
                             }
                         });
@@ -310,6 +439,7 @@ public class Activity_Toolbar extends AppCompatActivity {
             Data data  = new Data();
             data.setTitle(matches.get(i).getMatch_id());    //매치 아이디
             data.setContent(matches.get(i).getGame_variation());    //은하계 설정
+            data.setTime(matches.get(i).getGame_length()); //시간
             for(int j = 0 ; j < matches.get(i).getParticipants().size() ; j ++) { //검색한 닉네임을 찾을때 까지 반복
                 if(name.equals(matches.get(i).getParticipants().get(j).getUser_name())) {   //이름이 같으면
                     System.out.println("이름 : " + name + " 비교하는 이름 : " + matches.get(i).getParticipants().get(j).getUser_name());
@@ -320,12 +450,18 @@ public class Activity_Toolbar extends AppCompatActivity {
                             String tmp = matches.get(i).getParticipants().get(j).getTraits().get(t).getTrait_name();
                             tmp = tmp.replaceAll("Set3_" , "");
                             trait.add(tmp);
+
+                            //내 정보에 쓸 데이터 저장
+                            tmp_trait.add(tmp);
                         }
                     }
                     ArrayList<String> unit = new ArrayList<String>();
                     for(int u = 0 ; u < matches.get(i).getParticipants().get(j).getUnits().size() ; u++) { //유닛 갯수만큼 반복
                         String tmp = matches.get(i).getParticipants().get(j).getUnits().get(u).getCharacter_id();
                         unit.add(tmp);
+
+                        //내 정보에 쓸 데이터 저장
+                        tmp_unit.add(tmp);
                     }
                     data.setTrait(trait);
                     data.setUnit(unit);

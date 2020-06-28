@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,6 +64,26 @@ public class Activity_Saved extends AppCompatActivity {
 
         adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                System.out.println("세부 정보 클릭");
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        Activity_Details.class);
+                //이곳에서 세부 전적 데이터 인텐트로 넘김
+                Data data  = adapter.getItem(pos);
+                //System.out.println("클릭한 뷰의 pos : " + data.getPos() + "pos : " + pos);
+                intent.putExtra("match_id" , matches.get(pos).getMatch_id());
+                intent.putExtra("game_length" , matches.get(pos).getGame_length());
+                intent.putExtra("game_variation" , matches.get(pos).getGame_variation());
+                intent.putExtra("participants" , matches.get(pos).getParticipants());
+                intent.putExtra("save", true);
+                startActivity(intent);
+            }
+        });
+
         //init();
         //getData();
         ActionBar actionBar = getSupportActionBar();
@@ -132,7 +153,7 @@ public class Activity_Saved extends AppCompatActivity {
                     StringTokenizer st = new StringTokenizer(recv , "$");
                     String message = st.nextToken();
                     switch(message) {
-                        case "MATCH":
+                        case "MATCH": //매치정보 저장
                             match = new Match();
                             String match_id = st.nextToken();
                             float game_length = Float.parseFloat(st.nextToken());
@@ -141,7 +162,7 @@ public class Activity_Saved extends AppCompatActivity {
                             match.setGame_length(game_length);
                             match.setGame_variation(game_variation);
                             break;
-                        case "USER":
+                        case "USER": //유저정보 저장
                             participant = new Participant();
                             traits = new ArrayList<Trait>();
                             units = new ArrayList<Unit>();
@@ -157,7 +178,7 @@ public class Activity_Saved extends AppCompatActivity {
                             participant.setLevel(user_level);
                             participant.setPlayers_eliminated(user_player_eliminated);
                             break;
-                        case "TRAIT":
+                        case "TRAIT": //시너지 정보 저장
                             Trait trait = new Trait();
                             String trait_match_id = st.nextToken();
                             String trait_user_name = st.nextToken();
@@ -166,7 +187,7 @@ public class Activity_Saved extends AppCompatActivity {
                             trait.setTier_current(1);
                             traits.add(trait);
                             break;
-                        case "UNIT":
+                        case "UNIT": //유닛 정보 저장
                             Unit unit = new Unit();
                             String unit_match_id = st.nextToken();
                             String unit_user_name = st.nextToken();
@@ -217,6 +238,7 @@ public class Activity_Saved extends AppCompatActivity {
             Data data  = new Data();
             data.setTitle(matches.get(i).getMatch_id());    //매치 아이디
             data.setContent(matches.get(i).getGame_variation());    //은하계 설정
+            data.setTime(matches.get(i).getGame_length()); //시간
             System.out.println("참여자 : " + matches.get(i).getParticipants().size());
             for(int j = 0 ; j < matches.get(i).getParticipants().size() ; j ++) { //검색한 닉네임을 찾을때 까지 반복
                 if(TFT_name.equals(matches.get(i).getParticipants().get(j).getUser_name())) {   //이름이 같으면
