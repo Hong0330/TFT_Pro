@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -359,8 +360,11 @@ public class Activity_Toolbar extends AppCompatActivity {
                                 //패배 업데이트
                                 TextView lossesView = findViewById(R.id.textView13);
                                 lossesView.setText(String.valueOf("패      배 : " + leagueEntry.getLosses()));
-                                //평균등수 업데이트
+                                //승률 업데이트
                                 TextView aView = findViewById(R.id.textView14);
+                                DecimalFormat form = new DecimalFormat("#.##");
+                                double rate = ((double)leagueEntry.getWins()/(double)(leagueEntry.getWins() + leagueEntry.getLosses()))*100;
+                                aView.setText(String.valueOf("승      률 : "  + form.format(rate) + "%"));
 
                             }
                         });

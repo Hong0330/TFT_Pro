@@ -143,7 +143,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         void onBind(Data data) {
             ArrayList<Integer> trait = new ArrayList<Integer>();
             ArrayList<Integer> unit = new ArrayList<Integer>();
-            textView4.setText(data.getTitle());
+            textView4.setText("랭크");
             number = data.getTitle();
             int m = (int) (data.getTime()/60);
             int s = (int) (data.getTime()%60);
@@ -175,6 +175,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     break;
                 case "TFT3_GameVariation_TwoStarCarousels":
                     textView5.setText("성단");
+                    break;
+                case "TFT3_GameVariation_TwoItemMax" :
+                    textView5.setText("두개의 별");
                     break;
             }
 
