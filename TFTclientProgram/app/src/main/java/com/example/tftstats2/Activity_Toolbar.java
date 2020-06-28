@@ -138,6 +138,7 @@ public class Activity_Toolbar extends AppCompatActivity {
                 }
                 else if(id == R.id.logout){
                     Toast.makeText(context, title + ": 로그아웃 시도중", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
 
                 return true;
