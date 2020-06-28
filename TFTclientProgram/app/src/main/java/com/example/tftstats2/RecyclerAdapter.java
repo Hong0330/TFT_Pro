@@ -145,7 +145,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             ArrayList<Integer> unit = new ArrayList<Integer>();
             textView4.setText(data.getTitle());
             number = data.getTitle();
-            textView6.setText("테스트용");
+            int m = (int) (data.getTime()/60);
+            int s = (int) (data.getTime()%60);
+            textView6.setText(String.valueOf(m) + " : " + String.valueOf(s));
             switch (data.getContent()) {
                 case "TFT3_GameVariation_LittlerLegends":
                     textView5.setText("꼬꼬마 전설이");

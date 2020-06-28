@@ -338,6 +338,7 @@ public class Activity_Toolbar extends AppCompatActivity {
             Data data  = new Data();
             data.setTitle(matches.get(i).getMatch_id());    //매치 아이디
             data.setContent(matches.get(i).getGame_variation());    //은하계 설정
+            data.setTime(matches.get(i).getGame_length()); //시간
             for(int j = 0 ; j < matches.get(i).getParticipants().size() ; j ++) { //검색한 닉네임을 찾을때 까지 반복
                 if(name.equals(matches.get(i).getParticipants().get(j).getUser_name())) {   //이름이 같으면
                     System.out.println("이름 : " + name + " 비교하는 이름 : " + matches.get(i).getParticipants().get(j).getUser_name());

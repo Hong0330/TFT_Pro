@@ -238,6 +238,7 @@ public class Activity_Saved extends AppCompatActivity {
             Data data  = new Data();
             data.setTitle(matches.get(i).getMatch_id());    //매치 아이디
             data.setContent(matches.get(i).getGame_variation());    //은하계 설정
+            data.setTime(matches.get(i).getGame_length()); //시간
             System.out.println("참여자 : " + matches.get(i).getParticipants().size());
             for(int j = 0 ; j < matches.get(i).getParticipants().size() ; j ++) { //검색한 닉네임을 찾을때 까지 반복
                 if(TFT_name.equals(matches.get(i).getParticipants().get(j).getUser_name())) {   //이름이 같으면

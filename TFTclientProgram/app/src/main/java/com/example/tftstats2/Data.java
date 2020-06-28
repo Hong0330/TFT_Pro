@@ -11,6 +11,15 @@ public class Data {
     private ArrayList<String> unit = new ArrayList<String>();
     private int round;
     private int pos;
+    private float time;
+
+    public float getTime() {
+        return time;
+    }
+
+    public void setTime(float time) {
+        this.time = time;
+    }
 
     public int getRound() {
         return round;
